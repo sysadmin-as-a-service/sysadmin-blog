@@ -1,32 +1,57 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        sysadmin as a service
-      </h1>
-      <div class="links">
-        <a
-          href="/blog/my-first-article"
-          class="button--green"
-        >
-          blog
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div>
+    <div class="container">
+      <div>
+        <Logo />
+        <h1 class="title">
+          sysadmin as a service
+        </h1>
+        <div class="links">
+          <a
+            href="/blog/my-first-article"
+            class="button--green"
+          >
+            blog
+          </a>
+          <a
+            href="https://github.com/sysadmin-as-a-service"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button--grey"
+          >
+            github
+          </a>
+        </div>
       </div>
+    </div>  
+  
+    <div class="container">
+      <section>
+        <h1 class="title">
+          recent posts
+        </h1>
+  
+        <div class="content" v-for="article in articles" :key="article.slug">
+          <h2 class="title is-link">
+            <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
+          </h2> 
+          {{ article.description }} {{ article.date}}
+        </div>
+  
+      </section>
     </div>
-  </div>  
+  </div>
+
 </template>
 
 <script>
-export default {}
+  export default {
+    async asyncData({ $content }) {
+      const articles = await $content('articles').sortBy('date', 'desc').fetch()
+
+      return { articles }
+    }
+  }
 </script>
 
 <style>

@@ -1,9 +1,10 @@
 <template>
-<div class="content">
-  <article>
-    <nuxt-content :document="article"></nuxt-content>
-
-  </article>
+<div class="container">
+  <div class="content">
+    <article>
+      <nuxt-content :document="article"></nuxt-content>
+    </article>
+  </div>
 </div>
 </template>
 

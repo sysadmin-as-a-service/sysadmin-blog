@@ -8,7 +8,7 @@
         </h1>
         <div class="links">
           <a
-            href="/blog/my-first-article"
+            href="/my-first-article"
             class="button--green"
           >
             blog

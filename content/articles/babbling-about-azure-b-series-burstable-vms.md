@@ -13,7 +13,7 @@ However, funnily enough, the pricing is also _burstable_, in that it can spike b
 
 Each size VM has a "baseline" CPU amount, from 10% to 135%. Your VM will earn CPU credits any time that it is _under_ the baseline CPU threshold, and spend CPU credits any time that it is _over_ (up to a maximum)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-1.png?w=871)
+![](/images/2020/02/image-1.png?w=871)
 
 Preview pricing - no longer accurate!
 
@@ -24,13 +24,13 @@ We decided to start with a 2vCPU 8GB RAM D2v3 (a comparable customer running the
 
 Interestingly enough, we noticed that this was only intermittent, and so suggested that one the B-series VMs would work. The added advantage was that we could double the core count and RAM allocation of the server while keeping the cost of the server roughly the same.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-2.png?w=569)
+![](/images/2020/02/image-2.png?w=569)
 
 Monthly cost D2s vs. B4ms
 
 And the result? Fantastic. Now, the server can idle along most of the time, and then boost up to 400% of the baseline performance - i.e. it can use up to 16 cores if needed, rather than just the allocated 4 cores.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-3.png?w=1024)
+![](/images/2020/02/image-3.png?w=1024)
 
 Before, and after.
 

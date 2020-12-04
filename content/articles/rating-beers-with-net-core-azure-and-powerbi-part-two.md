@@ -3,7 +3,7 @@ title: "Rating Beers with .NET Core, Azure, and PowerBI - Part Two"
 date: "2020-02-02"
 ---
 
-This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/2020/02/18/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/2020/01/24/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/2020/02/18/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/2020/01/24/rating-beers-with-net-core-azure-and-powerbi-part-four/).
+This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-four/).
 
 Part two - moving the database from our SQLite dev instance, to Azure SQL.
 

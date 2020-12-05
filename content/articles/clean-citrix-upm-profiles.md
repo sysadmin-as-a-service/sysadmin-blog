@@ -1,11 +1,14 @@
 ---
 title: "Clean Citrix UPM Profiles"
 date: "2016-06-08"
+published: true
 ---
 
-UPDATE: This is now built into Profile Manager, and I'd recommend you use this instead of the below script. https://docs.citrix.com/en-us/profile-management/current-release/configure/include-and-exclude-items/enable-logon-exclusion-check.html Thanks Citrix!
+***Update******: This is now built into Profile Manager, and I'd recommend you use this instead of the below script. https://docs.citrix.com/en-us/profile-management/current-release/configure/include-and-exclude-items/enable-logon-exclusion-check.html Thanks Citrix!
 
 I have a hate/love relationship with Citrix Profile Manager.
+
+On the one hand, I love the fancy features like Profile Streaming, Active Writeback, and mirroring of credentials (and browser sessions!) across different servers between logon/logoff. I also appreciate some handy tools that Citrix/the Citrix Community have produced for UPM, like the UPM Log Parser and UPMConfigCheck.
 
 On the other hand, I HATE how much time I seem to spend on it, tweaking my UPM policies to troubleshoot slow logons, trying to figure out which parts of the Google Chrome User Data folder I need to make it work properly, trying to figure out what some obscure folder in AppData is for and what will potentially break if I exclude it.
 

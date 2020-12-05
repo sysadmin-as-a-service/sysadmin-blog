@@ -1,6 +1,7 @@
 ---
 title: "PowerShell Multithreading"
 date: "2018-02-10"
+published: false
 ---
 
 PowerShell is great at automating lots of stuff. Reset passwords, create user accounts, restart computers, etc.

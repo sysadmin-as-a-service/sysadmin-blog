@@ -1,6 +1,7 @@
 ---
 title: "Rating Beers with .NET Core, Azure, and PowerBI - Part One"
 date: "2020-01-16"
+published: true
 ---
 
 I work with a number of budding brewing enthusiasts. Last year, we decided to hold a homebrew competition to share and rate each others drops.
@@ -27,17 +28,17 @@ Getting started with Razor Pages was a little learning curve (this was my first 
 
 I had a simple four model architecture (plus an Enum class as I didn't know how to make a SelectList at first)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-9.png?w=166)
+![](/images/2020/01/image-9.png?w=166)
 
 One of the best things I found about using the Razor Pages template was that it uses jQuery and DataAnnotations to create some basic in-page data validation. For example, I could annotate a property in my class to say that it should be an EmailAddress, or a whole number, or an integer within a range...
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-10.png?w=351)
+![](/images/2020/01/image-10.png?w=351)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-11.png?w=331)
+![](/images/2020/01/image-11.png?w=331)
 
 And when invalid input was added - the user automatically gets a handy validation message.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-12.png?w=438)
+![](/images/2020/01/image-12.png?w=438)
 
 I made a few edits to the basic scaffolded pages (removing the Edit and Delete buttons from the scorecards, for one - I didn't want anyone deleting votes they didn't like!), I prettied the page up a little bit with some FontAwesome and menu items.
 

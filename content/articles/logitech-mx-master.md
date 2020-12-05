@@ -1,6 +1,7 @@
 ---
 title: "Logitech MX Master"
 date: "2015-08-18"
+published: true
 ---
 
 Yep, it was totally worth switching to this mouse.

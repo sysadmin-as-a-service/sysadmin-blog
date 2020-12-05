@@ -1,6 +1,7 @@
 ---
 title: "Logging Perfmon to SQL Database"
 date: "2015-09-02"
+published: true
 ---
 
 Disk Queue Length!
@@ -24,19 +25,19 @@ Steps:
 
 This will create 3x tables in PerfmonDB
 
-[![PerfmonDB](images/perfmondb.png)](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb.png)
+[![PerfmonDB](/images/perfmondb.png)](/images/2015/09/perfmondb.png)
 
 CounterData - the data
 
-[![PerfmonDB 2](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-2.png?w=300)](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-2.png)
+[![PerfmonDB 2](/images/2015/09/perfmondb-2.png?w=300)](/images/2015/09/perfmondb-2.png)
 
 CounterDetails - details on the counter(s) - I have used 3x in here
 
-[![PerfmonDB 3](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-3.png?w=300)](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-3.png)
+[![PerfmonDB 3](/images/2015/09/perfmondb-3.png?w=300)](/images/2015/09/perfmondb-3.png)
 
 DisplayToID
 
-[![PerfmonDB 4](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-4.png?w=300)](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-4.png)
+[![PerfmonDB 4](/images/2015/09/perfmondb-4.png?w=300)](/images/2015/09/perfmondb-4.png)
 
 With this data, you should be able to chart the Average Disk Queue length on your VDAs over a number of hours/days!
 
@@ -54,4 +55,4 @@ Glad you asked... Here's a handy little script that will do all of the typeperf 
 
  
 
- [](https://sysadminasaservice.files.wordpress.com/2015/09/perfmondb-2.png)
+ [](/images/2015/09/perfmondb-2.png)

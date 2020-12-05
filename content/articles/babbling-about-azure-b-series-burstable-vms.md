@@ -1,6 +1,7 @@
 ---
 title: "Babbling About Azure B-Series Burstable VMs"
 date: "2020-02-03"
+published: true
 ---
 
 The Azure B-Series burstable VMs have been around for [quite some time now](https://azure.microsoft.com/en-us/blog/introducing-b-series-our-new-burstable-vm-size/), but up until now, I hadn't had a reason to use them.

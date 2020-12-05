@@ -1,6 +1,7 @@
 ---
 title: "Citrix Profile Manager - IE Saved Passwords"
 date: "2015-08-10"
+published: true
 ---
 
 A winner first post... Internet Explorer not remembering Forms-based (i.e., AutoComplete) passwords for a website after the Citrix VDA has been restarted, or if I log into a different server.

@@ -1,6 +1,7 @@
 ---
 title: "QUSER and PowerShell"
 date: "2015-08-10"
+published: true
 ---
 
 UPDATED! with better Date format handling and added in Idle Time and shortened it and better coding in general. But still using QUSER :)

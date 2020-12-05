@@ -1,6 +1,7 @@
 ---
 title: "Search for and Delete Emails in PowerShell"
 date: "2018-02-04"
+published: true
 ---
 
 I am on the on-call roster for work. Most of the time, it's just annoying servers alerting that they've reached a critical drive space level, some service failing that someone thought was important to monitor, and someone who has gotten themselves locked out.

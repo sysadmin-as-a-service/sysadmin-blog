@@ -1,6 +1,7 @@
 ---
 title: "Rating Beers with .NET Core, Azure, and PowerBI - Part Three"
 date: "2020-02-10"
+published: true
 ---
 
 This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-four/).
@@ -14,27 +15,27 @@ First, we need to create our Dockerfile. For those more from the Windows world, 
 
 I updated Docker's example a little, as they were using an ASP.NET Core 2.2 image, whereas I wanted the latest & greatest 3.0 release (at the time)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-14.png?w=779)
+![](/images/2020/01/image-14.png?w=779)
 
 Next, we'll create a .dockerignore file - this tells Docker not to include certain stuff in our image (to keep the size down) - similar to a .gitignore file. The Docker docs recommend adding bin\\ and obj\\ to your .dockerignore at least, but there are lots of more verbose examples online.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-16.png?w=188)
+![](/images/2020/01/image-16.png?w=188)
 
 Now, double check that Docker Desktop is running (green light on bottom corner of Dashboard)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-17.png?w=1024)
+![](/images/2020/01/image-17.png?w=1024)
 
 Next, navigate to your project folder and run the below command **in an elevated PowerShell window**
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-18.png?w=313)
+![](/images/2020/01/image-18.png?w=313)
 
 build the docker image with the tag "beercomp"
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-19.png?w=876)
+![](/images/2020/01/image-19.png?w=876)
 
 list your docker image and filter by reference
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-20.png?w=727)
+![](/images/2020/01/image-20.png?w=727)
 
 run the docker image "beercomp" and call it beercompapp  
 \-d run in the background  
@@ -42,31 +43,31 @@ run the docker image "beercomp" and call it beercompapp
 
 Now, you should be able to browse to http://localhost:8080 and view our webapp!
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-21.png?w=1024)
+![](/images/2020/01/image-21.png?w=1024)
 
 But this is just running your docker image on your local computer. Now, you need to publish your docker image to a "registry" and host it somewhere. Instead of Docker Hub, we're going to use Azure Container Registry and deploy to Azure App Service.
 
 Log into portal.azure.com and search for "container registry"
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-22.png?w=455)
+![](/images/2020/01/image-22.png?w=455)
 
 Create your Container Registry. We'll just use the basic SKU as we don't require a high level of performance. The Premium SKUs also allow you to lock down the firewall to certain IPs, but we're happy with this being public.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/01/image-23.png?w=454)
+![](/images/2020/01/image-23.png?w=454)
 
 Note: you'll have to enable the Admin user later to upload your image to your Container Registry
 
 Once you've enabled your Admin user and retrieved the username/password, open up docker cli again and log into the registry
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-8.png?w=789)
+![](/images/2020/02/image-8.png?w=789)
 
 Tag your docker image with your registry name
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-9.png?w=708)
+![](/images/2020/02/image-9.png?w=708)
 
 And now push to your registry
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-11.png?w=638)
+![](/images/2020/02/image-11.png?w=638)
 
 Success! Time to set up our Azure App Service that we can deploy our container to.
 
@@ -78,7 +79,7 @@ I found the F1 instance (which has a limit of 60m/day compute) was a little slow
 
 Hurrah, cloud computing!
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-4.png?w=824)
+![](/images/2020/02/image-4.png?w=824)
 
 Free? Yes plz!
 
@@ -86,21 +87,21 @@ We've created our App Service Plan, but still need to create an App Service - he
 
 Fill out the details of the name of your instance, and select "Docker Container".
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-5.png?w=771)
+![](/images/2020/02/image-5.png?w=771)
 
 B1 was OK for testing, but my users demand the best experience - so I scaled this up later
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-12.png?w=727)
+![](/images/2020/02/image-12.png?w=727)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-13.png?w=676)
+![](/images/2020/02/image-13.png?w=676)
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-14.png?w=695)
+![](/images/2020/02/image-14.png?w=695)
 
 Create!
 
 Aaaaand... we're done.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-15.png?w=1024)
+![](/images/2020/02/image-15.png?w=1024)
 
 Bonus points if you noticed I updated the banner to read "HomeBrew Competition 20**20**"
 
@@ -110,4 +111,4 @@ If you're using VSCode, you can actually install the Docker extension and quickl
 
 You can choose "Create New Web App..." and it'll create a new App Service on the free tier, in Central US, with Application Insights enabled, or choose the Advanced option for more configuration options.
 
-![](https://sysadminasaservice.files.wordpress.com/2020/02/image-6.png?w=390)
+![](/images/2020/02/image-6.png?w=390)

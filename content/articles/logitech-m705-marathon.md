@@ -1,6 +1,7 @@
 ---
 title: "Logitech M705 Marathon"
 date: "2015-08-12"
+published: true
 ---
 
 I needed a new mouse, having used a basic Logitech one for yonks, and I was starting to get a sore arm by the end of the day. I've tried the Logitech T650 touchpad before (more for gimmicks than anything else), and while that was nice it was difficult to use under pressure.
@@ -21,4 +22,4 @@ So, if you're looking at buying this mouse, I wouldn't say DON'T DO IT... but tr
 
 I'll try update this post if/once I've swapped for the MX Master or something else.
 
-UPDATE: Swapped it for a better mouse! [Read my review here](https://sysadminasaservice.wordpress.com/2015/08/18/logitech-mx-master/)
+UPDATE: Swapped it for a better mouse! [Read my review here](/logitech-mx-master/)

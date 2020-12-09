@@ -10,7 +10,7 @@
                 <div class="card article">
                     <div class="card-content">
                         <div class="media">
-                            <div class="media-content has-text-centered">
+                            <div class="media-content has-text-centered mt-0">
                                 <p class="title article-title">{{ article.title }}
                                 <div class="tags has-addons level-item">
                                     <span class="tag is-rounded is-info">sysadmin</span>
@@ -85,7 +85,7 @@ height: 500px;
 }
 .articles {
   margin: 5rem 0;
-  margin-top: -200px;
+  /* margin-top: -200px; */
 }
 .articles .content p {
     line-height: 1.9;

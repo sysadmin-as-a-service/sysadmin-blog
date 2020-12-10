@@ -4,7 +4,7 @@
   
 <div class="container">
         <!-- START ARTICLE FEED -->
-        <section class="articles">
+        <section class="articles mt-0">
             <div class="column is-8 is-offset-2">
                 <!-- START ARTICLE -->
                 <div class="card article">

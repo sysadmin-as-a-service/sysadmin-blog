@@ -1,5 +1,6 @@
 <template>
-  <div class="navbar">
+  <div class="navbar is-fixed-top">
+
       <div class="navbar-brand">
           <a href="/" class="navbar-item">sysadmin as a service</a>
 
@@ -12,8 +13,8 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-            <a href="/blog" class="navbar-item">blog</a>
-            <a href="https://github.com/sysadmin-as-a-service" class="navbar-item">github</a>
+            <a href="/blog" class="navbar-item is-tab">blog</a>
+            <a href="https://github.com/sysadmin-as-a-service" class="navbar-item is-tab">github</a>
         </div>
         <div class="navbar-end">
 
@@ -21,8 +22,7 @@
 
       </div>
 
-
-  </div>
+    </div>
 </template>
 
 <script>

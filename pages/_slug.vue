@@ -1,6 +1,8 @@
 <template>
 <div>
   <navbar></navbar>
+
+  <recentposts></recentposts>
   
 <div class="container">
         <!-- START ARTICLE FEED -->
@@ -35,6 +37,7 @@
 
 <script>
 import navbar from '~/components/Navbar.vue';
+import recentposts from "~/components/RecentPosts.vue"
 
   export default {
     async asyncData({ $content, params }) {
@@ -43,7 +46,8 @@ import navbar from '~/components/Navbar.vue';
       return { article }
     },
     components:{
-      navbar
+      navbar,
+      recentposts
     },
     computed: {
       articleDate() {
@@ -62,38 +66,28 @@ html,body {
 }
 
 img {
-  height: auto;
-  max-width: 100%;
-  background-color: white;
-  border-radius: 6px;
+  width:50%;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-  color: #4a4a4a;
-  display: block;
-  padding: 1.25rem;
 }
 
 .navbar.is-white {
   background: #F0F2F4;
 }
+
 .navbar-brand .brand-text {
   font-size: 1.11rem;
   font-weight: bold;
 }
-.hero-body
-{background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Plum_trees_Kitano_Tenmangu.jpg/1200px-Plum_trees_Kitano_Tenmangu.jpg);
-background-position: center;
-background-size: cover;
-background-repeat: no-repeat;
-height: 500px;
-}
+
 .articles {
   margin: 5rem 0;
-  /* margin-top: -200px; */
 }
+
 .articles .content p {
     line-height: 1.9;
     margin: 15px 0;
 }
+
 .author-image {
     position: absolute;
     top: -30px;

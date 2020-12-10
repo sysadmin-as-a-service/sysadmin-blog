@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar is-fixed-top is-primary">
+  <div class="navbar">
       <div class="navbar-brand">
           <a href="/" class="navbar-item">sysadmin as a service</a>
 
@@ -35,10 +35,7 @@ export default {
 
 <style>
 .navbar {
-    /* background: rgb(0, 45, 66); */
-    /* width:100%; */
-    /* height: 5em; */
-    /* z-index: 1; */
+    box-shadow: 0 -0.1em 1em -0.125em rgba(10, 10, 10, 0.2) inset;
 }
 
 

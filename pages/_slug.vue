@@ -1,6 +1,6 @@
 <template>
 <div>
-  <!-- <navbar></navbar> -->
+  <navbar></navbar>
   
 <div class="container">
         <!-- START ARTICLE FEED -->
@@ -41,6 +41,9 @@ import navbar from '~/components/Navbar.vue';
       const article = await $content('articles', params.slug).fetch()
 
       return { article }
+    },
+    components:{
+      navbar
     },
     computed: {
       articleDate() {

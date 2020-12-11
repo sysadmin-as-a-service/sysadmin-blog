@@ -2,7 +2,7 @@
 <div>
   <navbar></navbar>
 
-  <recentposts></recentposts>
+  <recent-posts :articles="articles"></recent-posts>
   
 <div class="container">
         <!-- START ARTICLE FEED -->
@@ -37,19 +37,24 @@
 
 <script>
 import navbar from '~/components/Navbar.vue';
-import recentposts from "~/components/RecentPosts.vue"
+import RecentPosts from '~/components/RecentPosts.vue';
 
   export default {
     async asyncData({ $content, params }) {
       const article = await $content('articles', params.slug).fetch()
+      const articles = await $content('articles',{deep: true})
+        .where({published: {$eq: true}})
+        .sortBy('date', 'desc')
+        .limit(2)
+        .fetch()
 
-      return { article }
+      return { article,articles }
     },
     components:{
       navbar,
-      recentposts
+      RecentPosts
     },
-    computed: {
+    compute: {
       articleDate() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' }
         return new Date(this.article.date).toLocaleDateString('en', options)
@@ -66,7 +71,6 @@ html,body {
 }
 
 img {
-  width:50%;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 

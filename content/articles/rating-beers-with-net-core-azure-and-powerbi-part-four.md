@@ -2,6 +2,7 @@
 title: "Rating Beers with .NET Core, Azure, and PowerBI - Part Four"
 date: "2020-02-17"
 published: true
+description: 'Part Four: PowerBI, and a suprising conclusion!'
 ---
 
 This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-four/).

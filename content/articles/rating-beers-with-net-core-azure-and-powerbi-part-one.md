@@ -2,6 +2,7 @@
 title: "Rating Beers with .NET Core, Azure, and PowerBI - Part One"
 date: "2020-01-16"
 published: true
+description: 'Part one: building the Razor Pages web app'
 ---
 
 I work with a number of budding brewing enthusiasts. Last year, we decided to hold a homebrew competition to share and rate each others drops.

@@ -1,0 +1,21 @@
+RecentPosts:
+    - articles variable not loading for some reason
+    - get recent posts component displaying on post viewer
+    - make the recent posts on homepage into cards/boxes with short description
+
+Extras:
+    - add dark mode switch to navbar
+    - add Google or Bing Analytics
+    - add a contact button to homepage & navbar
+
+Styling:
+    - create a new icon/logo
+    - set icon on homepage
+    - set favicon
+    - update link styling to be more subtle, both in text and headers
+    - make the navbar menu item hover color grey instead of blue
+    - lost the image shadows somehow, doesn't seem like img css is applying
+
+Mobile:
+    - fix up title of posts scroll bar
+    - homepage title too big

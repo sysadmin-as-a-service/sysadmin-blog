@@ -25,17 +25,22 @@
       </div>
     </div>  
   
+
+    <!-- Need to move this into component   -->
     <div class="container">
       <section>
         <h1 class="title">
           recent posts
         </h1>
   
-        <div class="content" v-for="article in articles" :key="article.slug">
-          <h2 class="title is-link">
-            <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
-          </h2> 
-          {{ article.description }} {{ article.date}}
+        <div class="box media is-link" v-for="article in articles" :key="article.slug">        
+          <div class="media-content">
+            <div class="title is-3 is-link has-text-left">
+                <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
+            </div>
+            <div class="subtitle is-4 has-text-left">{{ article.description }}</div>        
+          </div>
+          <div class="media-right">{{ article.date }}</div>
         </div>
   
       </section>
@@ -45,10 +50,9 @@
 </template>
 
 <script>
-  export default {
+  export default {  
     async asyncData({ $content }) {
       const articles = await $content('articles',{deep: true}).where({published: {$eq: true}}).sortBy('date', 'desc').fetch()
-
       return { articles }
     }
   }

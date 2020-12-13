@@ -1,7 +1,17 @@
+Overall:
+    - hmm maybe I should simplify, don't do a separate blog layout.vue - there'll only be two layouts, right? 
+    homepage and post viewer. just put everything in _slug.vue.
+    And perhaps just bite the bullet on vuex.
+
+
 RecentPosts:
-    - articles variable not loading for some reason
+    - articles variable not loading for some reason @done
     - get recent posts component displaying on post viewer
     - make the recent posts on homepage into cards/boxes with short description
+    - make the media boxes clickable nuxt-links
+
+Store:
+    - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying.
 
 Extras:
     - add dark mode switch to navbar

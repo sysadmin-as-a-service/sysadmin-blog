@@ -1,8 +1,8 @@
 <template>
 <div>
-  <navbar></navbar>
+  <!-- <navbar></navbar>
 
-  <recent-posts :articles="articles"></recent-posts>
+  <recent-posts :articles="articles"></recent-posts> -->
   
 <div class="container">
         <!-- START ARTICLE FEED -->
@@ -36,10 +36,8 @@
 
 
 <script>
-import navbar from '~/components/Navbar.vue';
-import RecentPosts from '~/components/RecentPosts.vue';
-
   export default {
+    layout: 'blog',
     async asyncData({ $content, params }) {
       const article = await $content('articles', params.slug).fetch()
       const articles = await $content('articles',{deep: true})
@@ -49,10 +47,6 @@ import RecentPosts from '~/components/RecentPosts.vue';
         .fetch()
 
       return { article,articles }
-    },
-    components:{
-      navbar,
-      RecentPosts
     },
     compute: {
       articleDate() {

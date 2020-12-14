@@ -2,6 +2,7 @@ Overall:
     - hmm maybe I should simplify, don't do a separate blog layout.vue - there'll only be two layouts, right? 
     homepage and post viewer. just put everything in _slug.vue.
     And perhaps just bite the bullet on vuex.
+    still just battling with vuex and saving the articles from asyncData call!!
 
 
 RecentPosts:

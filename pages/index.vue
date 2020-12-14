@@ -50,9 +50,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
   export default {  
-    async asyncData({ $content }) {
+    async asyncData({ $content,context }) {
       const articles = await $content('articles',{deep: true}).where({published: {$eq: true}}).sortBy('date', 'desc').fetch()
+
+
       return { articles }
     }
   }

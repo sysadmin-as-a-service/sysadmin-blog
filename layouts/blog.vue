@@ -1,7 +1,9 @@
 <template>
   <div>
     <navbar></navbar>
-    <recent-posts :articles="articles"></recent-posts>
+    <recent-posts :articles="$store.state.articles"></recent-posts>
+
+
 
     <Nuxt />
   </div>

@@ -1,18 +1,19 @@
 Overall:
     - hmm maybe I should simplify, don't do a separate blog layout.vue - there'll only be two layouts, right? 
     homepage and post viewer. just put everything in _slug.vue.
-    And perhaps just bite the bullet on vuex.
-    still just battling with vuex and saving the articles from asyncData call!!
+    Have got vuex working.
+    Now need to figure out how to get Recent Posts to show as a side bar, except on mobile
 
 
 RecentPosts:
     - articles variable not loading for some reason @done
-    - get recent posts component displaying on post viewer
+    - get recent posts component displaying on post viewer @done
     - make the recent posts on homepage into cards/boxes with short description
     - make the media boxes clickable nuxt-links
 
 Store:
-    - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying.
+    - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying. @done
+    - add a filter to RecentPosts to just show 5 most Recent Posts
 
 Extras:
     - add dark mode switch to navbar

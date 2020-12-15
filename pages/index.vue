@@ -33,7 +33,7 @@
           recent posts
         </h1>
   
-        <div class="box media is-link" v-for="article in articles" :key="article.slug">        
+        <div class="box media is-link" v-for="article in $store.state.articles" :key="article.slug">        
           <div class="media-content">
             <div class="title is-3 is-link has-text-left">
                 <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
@@ -50,16 +50,16 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-
-  export default {  
-    async asyncData({ $content,context }) {
-      const articles = await $content('articles',{deep: true}).where({published: {$eq: true}}).sortBy('date', 'desc').fetch()
-
-
-      return { articles }
-    }
+export default {  
+  async asyncData({ $content, store }) {
+    const articles = await $content('articles',{deep: true})
+    .where({published: {$eq: true}})
+    .sortBy('date', 'desc')
+    .fetch()
+    
+    store.commit('setArticles',articles)
   }
+}
 </script>
 
 <style>

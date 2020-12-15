@@ -3,8 +3,6 @@
     <navbar></navbar>
     <recent-posts :articles="$store.state.articles"></recent-posts>
 
-
-
     <Nuxt />
   </div>
 </template>

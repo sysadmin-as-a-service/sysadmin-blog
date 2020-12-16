@@ -7,7 +7,7 @@
 <div class="container">
         <!-- START ARTICLE FEED -->
         <section class="articles mt-0">
-            <div class="column is-8 is-offset-2">
+            <div class="column">
                 <!-- START ARTICLE -->
                 <div class="card article">
                     <div class="card-content">
@@ -48,7 +48,7 @@
 
       return { article,articles }
     },
-    compute: {
+    computed: {
       articleDate() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' }
         return new Date(this.article.date).toLocaleDateString('en', options)

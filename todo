@@ -2,7 +2,7 @@ Overall:
     - hmm maybe I should simplify, don't do a separate blog layout.vue - there'll only be two layouts, right? 
     homepage and post viewer. just put everything in _slug.vue.
     Have got vuex working.
-    Now need to figure out how to get Recent Posts to show as a side bar, except on mobile
+    Making some changes to RecentPosts sidebar, now the nuxt-links from the homepage seem to have broken somehow.
 
 
 RecentPosts:

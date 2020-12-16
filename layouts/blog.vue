@@ -1,9 +1,20 @@
 <template>
   <div>
     <navbar></navbar>
-    <recent-posts :articles="$store.state.articles"></recent-posts>
+    <div class="container">
+      <div class="columns">
+        <div class="column"></div>
+        <div class="column is-four-fifths">
+          <Nuxt />
+        </div>
+        <div class="column">
+          <recent-posts :articles="$store.state.articles"></recent-posts>
+        </div>
 
-    <Nuxt />
+      </div>
+
+    </div>
+
   </div>
 </template>
 

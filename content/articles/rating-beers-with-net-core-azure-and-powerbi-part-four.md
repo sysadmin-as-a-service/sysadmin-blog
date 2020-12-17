@@ -5,7 +5,7 @@ published: true
 description: 'Part Four: PowerBI, and a suprising conclusion!'
 ---
 
-This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-four/).
+This is a four part blog series on how I [wrote a webapp using Razor Pages](/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](/rating-beers-with-net-core-azure-and-powerbi-part-four/).
 
 Part four - connecting PowerBI to our Azure SQL instance and displaying the results on a dashboard.
 

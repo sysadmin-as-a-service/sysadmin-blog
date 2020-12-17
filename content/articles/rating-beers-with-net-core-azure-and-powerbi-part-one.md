@@ -13,7 +13,7 @@ Needless to say, it was a shambles.
 
 So when the Social Committee\* approached me this year to help organize the homebrew competition, I decided we needed to up our game and develop a webapp to help us enter brews, scores, and view results.
 
-This is a four part blog series on how I [wrote a webapp using Razor Pages](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](https://sysadminasaservice.blog/rating-beers-with-net-core-azure-and-powerbi-part-four/).
+This is a four part blog series on how I [wrote a webapp using Razor Pages](/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](/rating-beers-with-net-core-azure-and-powerbi-part-four/).
 
 Part one - building the webapp itself. Wanting a very minimal but viable product, I opted for using Razor Pages and ASP.NET Core (using [this tutorial](https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-3.1&tabs=visual-studio)). I employed Entity Framework Core as my ORM, and (initially) SQLite for the database.
 

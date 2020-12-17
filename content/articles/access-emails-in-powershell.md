@@ -16,7 +16,7 @@ Thankfully there's a lot of scripts/posts out there that show you how to do bits
 
 **Step 2** - Ensure your 'audit' account has Impersonation Rights to the mailboxes in question - set up a new Management Role (https://msdn.microsoft.com/en-us/library/office/dn722376(v=exchg.150).aspx)
 
-**Step 3** - [View script on GitHub](https://github.com/jeremysprite/powershell-exchange/tree/master/search-emailmessage)
+**Step 3** - [View script on GitHub](https://github.com/sysadmin-as-a-service/powershell-exchange/tree/master/search-emailmessage)
 
 **Further Reading and credit:**
 

@@ -1,19 +1,17 @@
 Overall:
-    - hmm maybe I should simplify, don't do a separate blog layout.vue - there'll only be two layouts, right? 
-    homepage and post viewer. just put everything in _slug.vue.
-    Have got vuex working.
-    Making some changes to RecentPosts sidebar, now the nuxt-links from the homepage seem to have broken somehow.
+    - make recent posts on homepage a little better
+    - add descriptions to each article
 
 
 RecentPosts:
     - articles variable not loading for some reason @done
     - get recent posts component displaying on post viewer @done
     - make the recent posts on homepage into cards/boxes with short description
-    - make the media boxes clickable nuxt-links
+    - make the whole media boxes clickable nuxt-links?
 
 Store:
     - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying. @done
-    - add a filter to RecentPosts to just show 5 most Recent Posts
+    - add a filter to RecentPosts to just show 5 most Recent Posts @done
 
 Extras:
     - add dark mode switch to navbar
@@ -26,7 +24,7 @@ Styling:
     - set favicon
     - update link styling to be more subtle, both in text and headers
     - make the navbar menu item hover color grey instead of blue
-    - lost the image shadows somehow, doesn't seem like img css is applying
+    - lost the image shadows somehow, doesn't seem like img css is applying @done
 
 Mobile:
     - fix up title of posts scroll bar

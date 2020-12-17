@@ -7,12 +7,12 @@
           sysadmin as a service
         </h1>
         <div class="links">
-          <a
-            href="/my-first-article"
+          <nuxt-link
+            :to="$store.state.articles[0].slug"
             class="button--green"
           >
             blog
-          </a>
+          </nuxt-link>
           <a
             href="https://github.com/sysadmin-as-a-service"
             target="_blank"
@@ -25,7 +25,6 @@
       </div>
     </div>  
   
-
     <!-- Need to move this into component   -->
     <div class="container">
       <section>
@@ -63,6 +62,12 @@ export default {
 </script>
 
 <style>
+/* html,body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  background: #F0F2F4;
+} */
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -101,4 +106,9 @@ export default {
 .links {
   padding-top: 15px;
 }
+
+img {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
 </style>

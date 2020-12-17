@@ -1,21 +1,21 @@
 <template>
   <div>
     <navbar></navbar>
-    <div class="container">
-      <div class="columns">
-        <div class="column"></div>
-        <div class="column is-four-fifths">
+      <div class="columns mx-1">
+        <div class="column">
+          <recent-posts :articles="$store.state.articles.slice(0,5)"></recent-posts>
+        </div>
+        <div class="column is-three-fifths">
           <Nuxt />
         </div>
         <div class="column">
-          <recent-posts :articles="$store.state.articles"></recent-posts>
+          
         </div>
 
       </div>
 
     </div>
 
-  </div>
 </template>
 
 <script>

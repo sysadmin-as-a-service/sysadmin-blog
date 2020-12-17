@@ -1,13 +1,17 @@
 <template>
-      <div class="box">
+      <div class="box mt-6 has-text-left">
 
+        <div class="title is-3">
+          Recent Posts
+        </div>
           <div class="content" v-for="article in articles" :key="article.slug">
-            <div class="title is-3 is-link">
+            <div class="title is-6 is-link">
               <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
-              {{ article.title }}
             </div>
-
-            {{ article.description }}
+            <div class="subtitle is-6">
+              {{ article.description }}
+            </div>
+            
           </div>
   
       </div>

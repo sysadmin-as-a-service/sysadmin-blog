@@ -1,32 +1,26 @@
 <template>
 <div>
-  <!-- <navbar></navbar>
-
-  <recent-posts :articles="articles"></recent-posts> -->
   
 <div class="container">
         <!-- START ARTICLE FEED -->
-        <section class="articles mt-0">
-            <div class="column">
-                <!-- START ARTICLE -->
-                <div class="card article">
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-content has-text-centered mt-0">
-                                <p class="title article-title">{{ article.title }}
-                                <div class="tags has-addons level-item">
-                                    <span class="tag is-rounded is-info">sysadmin</span>
-                                    <span class="tag is-rounded">{{ articleDate }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content article-body">
-                            <nuxt-content :document="article"></nuxt-content>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="articles mt-6">
+          <!-- START ARTICLE -->
+          <div class="card article">
+              <div class="card-content">
+                  <div class="media">
+                      <div class="media-content has-text-centered mt-0">
+                          <p class="title article-title">{{ article.title }}
+                          <div class="tags has-addons level-item">
+                              <span class="tag is-rounded is-info">sysadmin</span>
+                              <span class="tag is-rounded">{{ articleDate }}</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="content article-body has-text-left">
+                      <nuxt-content :document="article"></nuxt-content>
+                  </div>
+              </div>
+          </div>
         </section>
 </div>
 
@@ -40,13 +34,8 @@
     layout: 'blog',
     async asyncData({ $content, params }) {
       const article = await $content('articles', params.slug).fetch()
-      const articles = await $content('articles',{deep: true})
-        .where({published: {$eq: true}})
-        .sortBy('date', 'desc')
-        .limit(2)
-        .fetch()
-
-      return { article,articles }
+      
+      return { article }
     },
     computed: {
       articleDate() {
@@ -58,11 +47,6 @@
 </script>
 
 <style scoped>
-html,body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  background: #F0F2F4;
-}
 
 img {
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
@@ -103,8 +87,9 @@ img {
 .media-content {
   margin-top: 3rem;
 }
-.article, .promo-block {
-  margin-top: 6rem;
+
+.promo-block {
+  margin-top: 3rem;
 }
 div.column.is-8:first-child {
   padding-top: 0;
@@ -121,7 +106,7 @@ div.column.is-8:first-child {
 }
 .article-body {
   line-height: 1.4;
-  margin: 0 6rem;
+  margin: 0 4rem;
 }
 .promo-block .container {
   margin: 1rem 5rem;

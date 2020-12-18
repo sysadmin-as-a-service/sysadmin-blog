@@ -3,9 +3,11 @@
     <div class="container">
       <div>
         <Logo />
-        <h1 class="title">
-          sysadmin as a service
-        </h1>
+        <div class="typewriter">
+          <h1 class="title">
+            sysadmin as a service
+          </h1>
+        </div>
         <div class="links">
           <nuxt-link
             :to="$store.state.articles[0].slug"
@@ -109,6 +111,32 @@ export default {
 
 img {
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid #4896ca; /* The typwriter cursor */
+  border-radius: 2px;
+  border-width: .1em;
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(42, end),
+    blink-caret .75s step-end infinite,
+    delay 2s;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #4896ca; }
 }
 
 </style>

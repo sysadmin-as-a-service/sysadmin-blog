@@ -2,7 +2,6 @@ Overall:
     - make recent posts on homepage a little better
     - add descriptions to each article
 
-
 RecentPosts:
     - articles variable not loading for some reason @done
     - get recent posts component displaying on post viewer @done

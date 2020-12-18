@@ -13,7 +13,7 @@
         </div>
 
       </div>
-
+      <vue-footer></vue-footer>
     </div>
 
 </template>
@@ -21,11 +21,13 @@
 <script>
 import navbar from '~/components/Navbar.vue';
 import RecentPosts from '~/components/RecentPosts.vue';
+import VueFooter from '~/components/VueFooter.vue';
 
 export default {
   components:{
     navbar,
-    RecentPosts
+    RecentPosts,
+    VueFooter
   }
 
 }

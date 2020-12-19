@@ -5,7 +5,7 @@
         <Logo />
         <div class="typewriter">
           <h1 class="title">
-            sysadmin as a service
+            sysadmin as a service.blog
           </h1>
         </div>
         <div class="links">
@@ -123,16 +123,27 @@ img {
   border-width: .1em;
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
+  letter-spacing: .05em; /* Adjust as needed */
   animation: 
-    typing 3.5s steps(42, end),
-    blink-caret .75s step-end infinite,
-    delay 2s;
+    typing 1.5s steps(7, end) 1s,
+    typing2 0.5s steps(5, end) 2.5s,
+    typing3 2s steps(12, end) 3s,
+    blink-caret .75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
+  to { width: 50% }
+}
+
+@keyframes typing2 {
+  from { width: 50% }
+  to { width: 30% }
+}
+
+@keyframes typing3 {
+  from { width: 30% }
   to { width: 100% }
 }
 

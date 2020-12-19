@@ -2,6 +2,7 @@
 title: "Allowing non-Admins to Shadow, Message, and more on 2012 R2 RDS..."
 date: "2015-12-03"
 published: true
+description: 'Better management of RDS farms in 2012 R2'
 ---
 
 Although this one has been posted a few times before, I thought I'd add it in for my own reference as it taught me something I wasn't aware of - setting permissions through WMI objects.

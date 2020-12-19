@@ -2,6 +2,7 @@
 title: "Logitech M705 Marathon"
 date: "2015-08-12"
 published: true
+description: 'Crap mouse, don't buy.'
 ---
 
 I needed a new mouse, having used a basic Logitech one for yonks, and I was starting to get a sore arm by the end of the day. I've tried the Logitech T650 touchpad before (more for gimmicks than anything else), and while that was nice it was difficult to use under pressure.

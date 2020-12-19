@@ -2,6 +2,7 @@
 title: "Login to Storefront with cURL"
 date: "2015-08-30"
 published: true
+description: 'Automate user logons using the Storefront API'
 ---
 
 This is the project that made me want to start documenting some of my scripts & discoveries.

@@ -1,6 +1,6 @@
 Overall:
     - make recent posts on homepage a little better
-    - add descriptions to each article
+    - add descriptions to each article @done
 
 RecentPosts:
     - articles variable not loading for some reason @done

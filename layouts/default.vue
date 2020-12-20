@@ -1,6 +1,7 @@
 <template>
   <div>
     <Nuxt />
+    <vue-footer></vue-footer>
   </div>
 </template>
 

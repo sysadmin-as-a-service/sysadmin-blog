@@ -94,6 +94,7 @@ export default {
   font-weight: 300;
   font-size: 100px;
   color: #35495e;
+  /* color: #017282 ; */
   letter-spacing: 1px;
 }
 
@@ -150,7 +151,7 @@ img {
 /* The typewriter cursor effect */
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: #4896ca; }
+  50% { border-color: #017282; }
 }
 
 </style>

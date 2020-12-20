@@ -2,7 +2,7 @@
   <div class="navbar is-fixed-top">
 
       <div class="navbar-brand">
-          <a href="/" class="navbar-item">sysadmin as a service</a>
+          <a href="/" class="navbar-item navbar-logo"><Logo/></a>
 
             <a role="button" class="navbar-burger">
                 <span aria-hidden="true"></span>

@@ -3,6 +3,7 @@ title: "Clean Citrix UPM Profiles"
 date: "2016-06-08"
 published: true
 description: 'Remove now-excluded folders from existing UPM profiles'
+tags: ['PowerShell','Citrix']
 ---
 
 ***Update******: This is now built into Profile Manager, and I'd recommend you use this instead of the below script. https://docs.citrix.com/en-us/profile-management/current-release/configure/include-and-exclude-items/enable-logon-exclusion-check.html Thanks Citrix!

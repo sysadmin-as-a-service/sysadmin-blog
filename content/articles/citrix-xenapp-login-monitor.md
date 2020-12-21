@@ -3,6 +3,7 @@ title: "Citrix XenApp - Login Monitor"
 date: "2015-12-02"
 published: true
 description: 'Simulated logon to Citrix using PowerShell'
+tags: ['Citrix','PowerShell']
 ---
 
 ***Update***: I'd recommend using one of the many free tools available to do this now, like ControlUp Scoutbees free edition, or just using the ControlUp Logon Simulator, or using Desktop/Application Probing in Citrix itself (if you're licensed for it!)

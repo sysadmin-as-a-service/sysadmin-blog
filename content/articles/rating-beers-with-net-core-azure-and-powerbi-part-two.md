@@ -3,6 +3,7 @@ title: "Rating Beers with .NET Core, Azure, and PowerBI - Part Two"
 date: "2020-02-02"
 published: true
 description: 'Part two: migrating our app database to Azure SQL'
+tags: ['.NET','PowerBI','Azure','Beer','SQL']
 ---
 
 This is a four part blog series on how I [wrote a webapp using Razor Pages](/rating-beers-with-net-core-azure-and-powerbi-part-one/), [added an Azure SQL database](/rating-beers-with-net-core-azure-and-powerbi-part-two/), [deployed to Azure App Service](/rating-beers-with-net-core-azure-and-powerbi-part-three/), and then [viewed the results using PowerBI](/rating-beers-with-net-core-azure-and-powerbi-part-four/).

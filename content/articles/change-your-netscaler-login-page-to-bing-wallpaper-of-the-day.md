@@ -1,8 +1,9 @@
 ---
-title: "Change Your Netscaler Login Page to Bing Wallpaper of the Day"
+title: "Change Your NetScaler Login Page to Bing Wallpaper of the Day"
 date: "2016-10-05"
 published: true
 description: 'Bing daily wallpaper for your NetScaler Gateway!'
+tags: ['Citrix','Bash']
 ---
 
 If you have done a Bing search for "How to change my Netscaler Login page to the Bing daily Wallpaper", you have come to the right place.

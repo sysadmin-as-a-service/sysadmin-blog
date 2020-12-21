@@ -1,11 +1,22 @@
-Overall:
-    - make recent posts on homepage a little better
+Overall, by NY:
+    - create storage account/github pages/whatevs to host the site
+    - add github actions or azure devops to build site on commit
+    - update DNS to point to new blog
+    - add forwarding to existing wordpress site
+    - make the logo on the navbar resize properly
+    - make a tag-search page that you're routed to by clicking on a tag
+    - update the home page animation to do a clean misspelling, retyping animation
+    - update colour of buttons to match site colours
+    - update colour of links etc. to match site colours
+    - make it look good on mobile
+    - make recent posts on homepage a little better @done
     - add descriptions to each article @done
+    - add tags to all articles @done
 
 RecentPosts:
     - articles variable not loading for some reason @done
     - get recent posts component displaying on post viewer @done
-    - make the recent posts on homepage into cards/boxes with short description
+    - make the recent posts on homepage into cards/boxes with short description @done
     - make the whole media boxes clickable nuxt-links?
 
 Store:
@@ -16,6 +27,8 @@ Extras:
     - add dark mode switch to navbar
     - add Google or Bing Analytics
     - add a contact button to homepage & navbar
+    - add a tag cloud to the right hand side of blog page
+    - make tags on recent posts clickable
 
 Styling:
     - create a new icon/logo @done
@@ -23,12 +36,11 @@ Styling:
     - set favicon @done
     - update logo on navbar
     - update link styling to be more subtle, both in text and headers
-    - make the navbar menu item hover color grey instead of blue
+    - make the navbar menu item hover color site colours instead of blue
     - lost the image shadows somehow, doesn't seem like img css is applying @done
     - finish homepage hero animation
     - fix colour of green/grey buttons
     - change link and author tag colors to match palette
-    - 
 
 Mobile:
     - fix up title of posts scroll bar

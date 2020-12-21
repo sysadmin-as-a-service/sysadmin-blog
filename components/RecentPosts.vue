@@ -10,6 +10,12 @@
             </div>
             <div class="subtitle is-6">
               {{ article.description }}
+              <br/>
+            <!-- </div>
+            <div class="has-text-left"> -->
+              <span class="tag is-rounded mx-1 mt-4" v-for="tag in article.tags" :key="tag">
+                {{ tag.toLowerCase() }}
+              </span>
             </div>
             
           </div>

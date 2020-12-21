@@ -3,6 +3,7 @@ title: "Logging Perfmon to SQL Database"
 date: "2015-09-02"
 published: true
 description: 'Perfmon to SQL made easy'
+tags: ['SQL','PowerShell']
 ---
 
 Disk Queue Length!

@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="container">
-      <div>
-        <Logo />
+      <div class="mx-5">
+          <Logo />
+      </div>     
         <div class="typewriter">
           <h1 class="title">
-            sysadmin
+            sysadmin as a service
           </h1>
-        </div>
         <div class="links">
           <nuxt-link
             :to="$store.state.articles[0].slug"
@@ -34,8 +34,8 @@
           recent posts
         </h1>
   
-        <div class="box media is-link" v-for="article in $store.state.articles" :key="article.slug">        
-          <div class="media-content">
+        <div class="box columns m-4" v-for="article in $store.state.articles" :key="article.slug">        
+          <div class="column is-four-fifths">
             
             <div class="title is-3 is-link has-text-left">
                 <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
@@ -48,9 +48,13 @@
             <div class="has-text-left">
               <span class="tag is-rounded mx-1" v-for="tag in article.tags" :key="tag">{{ tag.toLowerCase() }}</span>
             </div>
-
+            
           </div>
-          <div class="media-right">{{ formatDate(article.date) }}</div>
+
+          <div class="column is-hidden-mobile">
+            {{ formatDate(article.date) }}
+          </div>
+
         </div>
   
       </section>
@@ -71,7 +75,7 @@ export default {
   },
   methods: {
     formatDate(rawDate) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' }
+      const options = { year: 'numeric', month: 'short', day: 'numeric' }
       return new Date(rawDate).toLocaleDateString('en', options)
     }
   }
@@ -139,10 +143,10 @@ img {
   border-width: .1em;
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
+  letter-spacing: .10em; /* Adjust as needed */
   animation: 
     startAnimation 1s,
-    typing 4s steps(8, end) 1s,
+    typing 3s steps(21, end) 0.8s,
     /* typing2 0.5s steps(5, end) 2.5s,
     typing3 2s steps(12, end) 3s, */
     blink-caret .75s step-end infinite;
@@ -151,7 +155,7 @@ img {
 /* The typing effect */
 @keyframes startAnimation {
   from { opacity: 0%; width: 0}
-  to { opacity: 100%; width: 0% }
+  to { opacity: 100%; width: 0}
 }
 
 @keyframes typing {

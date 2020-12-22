@@ -3,12 +3,18 @@ Overall, by NY:
     - add github actions or azure devops to build site on commit
     - update DNS to point to new blog
     - add forwarding to existing wordpress site
-    - make the logo on the navbar resize properly
+    - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag
     - update the home page animation to do a clean misspelling, retyping animation
     - update colour of buttons to match site colours
     - update colour of links etc. to match site colours
-    - make it look good on mobile
+
+Mobile:
+    - Recent posts on main page @done
+    - logo-y thing on main page
+    - width of blog reader on blog page @done
+    - width of blog text on blog page
+    - visibility of Recent Posts & other column on blog page @done
     - make recent posts on homepage a little better @done
     - add descriptions to each article @done
     - add tags to all articles @done

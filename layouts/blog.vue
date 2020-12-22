@@ -2,13 +2,13 @@
   <div>
     <navbar></navbar>
       <div class="columns mx-1">
-        <div class="column">
+        <div class="column is-hidden-touch">
           <recent-posts :articles="$store.state.articles.slice(0,5)"></recent-posts>
         </div>
-        <div class="column is-three-fifths">
+        <div class="column is-three-fifths-tablet">
           <Nuxt />
         </div>
-        <div class="column">
+        <div class="column is-hidden-touch">
           
         </div>
 

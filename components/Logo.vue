@@ -1,5 +1,5 @@
 <template>
-  <svg class="NuxtLogo" width="245" height="180" viewBox="0 0 416.75 416.75" xmlns="http://www.w3.org/2000/svg">
+  <svg class="NuxtLogo" width="245" viewBox="0 0 417 417" xmlns="http://www.w3.org/2000/svg">
 
 	<path style="fill:#00BBD3;" d="M305.025,325.756c-3.7,0-7.4-1.4-10.3-4.1c-6-5.7-6.3-15.2-0.6-21.2l86.9-92.1l-86.9-92.1
 		c-5.7-6-5.4-15.5,0.6-21.2s15.5-5.4,21.2,0.6l96.7,102.4c5.5,5.8,5.5,14.8,0,20.6l-96.7,102.4

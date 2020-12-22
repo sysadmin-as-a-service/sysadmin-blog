@@ -2,7 +2,9 @@
   <div class="navbar is-fixed-top">
 
       <div class="navbar-brand">
-          <a href="/" class="navbar-item navbar-logo"><Logo/></a>
+        <a href="/" class="navbar-item navbar-logo">
+            <Logo/>
+        </a>
 
             <a role="button" class="navbar-burger">
                 <span aria-hidden="true"></span>
@@ -38,6 +40,10 @@ export default {
     box-shadow: 0 -0.1em 1em -0.125em rgba(10, 10, 10, 0.2) inset;
 }
 
+.navbar-logo {
+    width:3.5em;
+    height:auto;
+}
 
 
 </style>

@@ -11,17 +11,27 @@
         <div class="links">
           <nuxt-link
             :to="$store.state.articles[0].slug"
-            class="button--green"
+            class="button is-link is-medium is-outlined is-light"
           >
+          <span class="icon">
+            <i class="fab fa-align-right"></i>
+          </span>
+          <span>
             blog
+          </span>
           </nuxt-link>
           <a
             href="https://github.com/sysadmin-as-a-service"
             target="_blank"
             rel="noopener noreferrer"
-            class="button--grey"
-          >
-            github
+            class="button is-link is-medium is-outlined"
+          >    
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>
+              github
+            </span>
           </a>
         </div>
       </div>

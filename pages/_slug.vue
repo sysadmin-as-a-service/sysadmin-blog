@@ -11,7 +11,7 @@
                       <div class="media-content has-text-centered mt-0">
                           <p class="title article-title">{{ article.title }}
                           <div class="tags has-addons level-item">
-                              <span class="tag is-rounded is-info">sysadmin</span>
+                              <span class="tag is-rounded is-primary">sysadmin</span>
                               <span class="tag is-rounded">{{ articleDate }}</span>
                           </div>
                       </div>

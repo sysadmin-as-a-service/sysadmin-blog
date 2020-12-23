@@ -6,8 +6,8 @@ Overall, by NY:
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag
     - update the home page animation to do a clean misspelling, retyping animation
-    - update colour of buttons to match site colours
-    - update colour of links etc. to match site colours
+    - update colour of buttons to match site colours @done
+    - update colour of links etc. to match site colours @done
 
 Mobile:
     - Recent posts on main page @done
@@ -24,6 +24,7 @@ RecentPosts:
     - get recent posts component displaying on post viewer @done
     - make the recent posts on homepage into cards/boxes with short description @done
     - make the whole media boxes clickable nuxt-links?
+    - The links are relative so its going to /article1/article2 which obv doesn't work
 
 Store:
     - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying. @done
@@ -35,6 +36,7 @@ Extras:
     - add a contact button to homepage & navbar
     - add a tag cloud to the right hand side of blog page
     - make tags on recent posts clickable
+    - Add font awesome
 
 Styling:
     - create a new icon/logo @done

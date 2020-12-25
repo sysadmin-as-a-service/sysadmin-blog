@@ -16,7 +16,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="content article-body has-text-left">
+                  <div class="content article-body mx-4 has-text-left">
                       <nuxt-content :document="article"></nuxt-content>
                   </div>
               </div>
@@ -106,7 +106,6 @@ div.column.is-8:first-child {
 }
 .article-body {
   line-height: 1.4;
-  margin: 0 4rem;
 }
 .promo-block .container {
   margin: 1rem 5rem;

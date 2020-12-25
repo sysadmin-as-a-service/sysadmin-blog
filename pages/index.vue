@@ -1,24 +1,25 @@
 <template>
   <div>
-    <div class="container">
-      <div class="mx-5">
+    <div class="columns has-text-centered is-vcentered">
+      <div class="logo pl-1 column is-one-quarter">
           <Logo />
-      </div>     
-        <div class="typewriter">
-          <h1 class="title">
-            sysadmin as a service
-          </h1>
-        <div class="links">
+      </div>  
+      <div class="column is-half">
+      <div class="typewriter">
+        <span class="title is-size-1">
+          sysadmin as a service
+        </span>
+      <div class="links">
           <nuxt-link
             :to="$store.state.articles[0].slug"
-            class="button is-link is-medium is-outlined is-light"
+            class="button is-link is-medium is-outlined"
           >
-          <span class="icon">
-            <i class="fab fa-align-right"></i>
-          </span>
-          <span>
-            blog
-          </span>
+            <span class="icon">
+              <i class="fab fa-align-right"></i>
+            </span>
+            <span>
+              blog
+            </span>
           </nuxt-link>
           <a
             href="https://github.com/sysadmin-as-a-service"
@@ -35,12 +36,14 @@
           </a>
         </div>
       </div>
+      </div>   
+
     </div>  
   
     <!-- Need to move this into component   -->
     <div class="container">
       <section>
-        <h1 class="title">
+        <h1 class="title is-1">
           recent posts
         </h1>
   
@@ -56,7 +59,7 @@
             </div>
             
             <div class="has-text-left">
-              <span class="tag is-rounded mx-1" v-for="tag in article.tags" :key="tag">{{ tag.toLowerCase() }}</span>
+              <span class="tag is-rounded mx-1 is-size-6" v-for="tag in article.tags" :key="tag">{{ tag.toLowerCase() }}</span>
             </div>
             
           </div>
@@ -146,7 +149,11 @@ img {
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 
-.typewriter h1 {
+.NuxtLogo {
+  max-width: 100%;
+}
+
+.typewriter {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid #4896ca; /* The typwriter cursor */
   border-radius: 2px;

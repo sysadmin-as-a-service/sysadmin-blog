@@ -54,12 +54,16 @@
                 <nuxt-link :to="article.slug">{{ article.title }}</nuxt-link>
             </div>
             
-            <div class="subtitle is-4 has-text-left">
+            <div class="subtitle is-4 has-text-left mb-0">
               {{ article.description }}
             </div>
             
-            <div class="has-text-left">
-              <span class="tag is-rounded mx-1 is-size-6" v-for="tag in article.tags" :key="tag">{{ tag.toLowerCase() }}</span>
+            <div class="has-text-left mx-1">
+              <!-- <span class="tag is-rounded mx-1 is-size-6" v-for="tag in article.tags" :key="tag">{{ tag.toLowerCase() }}</span> -->
+              <span v-for="tag in article.tags" :key="tag">
+                <tag-component :tag="tag"></tag-component>
+              </span>
+            
             </div>
             
           </div>
@@ -77,6 +81,8 @@
 </template>
 
 <script>
+import tagComponent from "~/components/tagComponent";
+
 export default {  
   async asyncData({ $content, store }) {
     const articles = await $content('articles',{deep: true})
@@ -91,6 +97,9 @@ export default {
       const options = { year: 'numeric', month: 'short', day: 'numeric' }
       return new Date(rawDate).toLocaleDateString('en', options)
     }
+  },
+  components: {
+    tagComponent
   }
 }
 </script>
@@ -111,7 +120,7 @@ export default {
   text-align: center;
 }
 
-.title {
+/* .title {
   font-family:
     'Quicksand',
     'Source Sans Pro',
@@ -126,17 +135,16 @@ export default {
   font-weight: 300;
   font-size: 100px;
   color: #35495e;
-  /* color: #017282 ; */
   letter-spacing: 1px;
-}
+} */
 
-.subtitle {
+/* .subtitle {
   font-weight: 300;
   font-size: 42px;
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
+} */
 
 .links {
   padding-top: 15px;

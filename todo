@@ -4,7 +4,7 @@ Overall, by NY:
     - update DNS to point to new blog
     - add forwarding to existing wordpress site
     - make the logo on the navbar resize properly @done
-    - make a tag-search page that you're routed to by clicking on a tag
+    - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation
     - update colour of buttons to match site colours @done
     - update colour of links etc. to match site colours @done
@@ -26,7 +26,7 @@ RecentPosts:
     - get recent posts component displaying on post viewer @done
     - make the recent posts on homepage into cards/boxes with short description @done
     - make the whole media boxes clickable nuxt-links?
-    - The links are relative so its going to /article1/article2 which obv doesn't work
+    - The links are relative so its going to /article1/article2 which obv doesn't work @done
 
 Store:
     - might have to implement vuex in order to allow Layouts and Recent Posts components to get list of articles etc. annoying. @done
@@ -37,7 +37,7 @@ Extras:
     - add Google or Bing Analytics
     - add a contact button to homepage & navbar
     - add a tag cloud to the right hand side of blog page
-    - make tags on recent posts clickable
+    - make tags on recent posts clickable @done
     - Add font awesome
 
 Styling:

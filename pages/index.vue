@@ -12,7 +12,7 @@
         </span>
       </div> -->
 
-      <typewriter text="sysadmin as a service"></typewriter>
+      <typewriter text="sysadmin as a service."></typewriter>
 
       <div class="links">
           <nuxt-link

@@ -1,7 +1,7 @@
 <template>
     <div class="typewriter">
         <span class="title is-size-1">
-            {{ printedText }}
+            {{ printedText }}<span class="cursor">|</span>
         </span>
     </div>
 </template>
@@ -20,9 +20,15 @@ export default {
 
             // each interval, get character at next index and add to printedText
             if(this.textIndexPos < this.text.length){
-                this.printedText = this.printedText + this.text[this.textIndexPos]
-                this.textIndexPos++
-                setTimeout( () => { this.typeText() }, 500 )
+
+              var rand = Math.random()
+
+                if(rand < 0.7 || this.printedText.length < 1){
+                  this.printedText = this.printedText + this.text[this.textIndexPos]
+                  this.textIndexPos++
+                }
+
+                setTimeout( () => { this.typeText() }, 100 )
             }
         }
     },
@@ -37,11 +43,8 @@ export default {
 
 .typewriter {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid #4896ca; /* The typwriter cursor */
-  border-radius: 2px;
-  border-width: .1em;
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  /* white-space: nowrap; Keeps the content on a single line */
+  /* margin: 0 auto; Gives that scrolling effect as the typing happens */
   letter-spacing: .10em; /* Adjust as needed */
   /* animation: 
     startAnimation 1s,
@@ -49,6 +52,10 @@ export default {
     /* typing2 0.5s steps(5, end) 2.5s,
     typing3 2s steps(12, end) 3s, */
     /* blink-caret .75s step-end infinite; */
+}
+
+.cursor {
+  animation: blink-caret .75s step-end infinite
 }
 
 /* The typing effect */
@@ -74,8 +81,8 @@ export default {
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #017282; }
+  from, to { opacity: 1 }
+  50% { opacity: 0 }
 }
 
 </style>

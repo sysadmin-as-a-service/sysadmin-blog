@@ -32,10 +32,16 @@
 <script>
   export default {
     layout: 'blog',
-    async asyncData({ $content, params }) {
+    async asyncData({ $content, store, params }) {
+      const articles = await $content('articles',{deep: true})
+      .where({published: {$eq: true}})
+      .sortBy('date', 'desc')
+      .fetch()
+      store.commit('setArticles',articles)
+
       const article = await $content('articles', params.slug).fetch()
-      
       return { article }
+      
     },
     computed: {
       articleDate() {

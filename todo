@@ -1,13 +1,15 @@
 Overall, by NY:
-    - create storage account/github pages/whatevs to host the site
-    - add github actions or azure devops to build site on commit
-    - update DNS to point to new blog
+    - create storage account/github pages/whatevs to host the site @done
+    - add github actions or azure devops to build site on commit @done
+    - update DNS to point sysadminasaservice.blog to new site
     - add forwarding to existing wordpress site
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation @done
     - update colour of buttons to match site colours @done
     - update colour of links etc. to match site colours @done
+    - fix issue with articles not populating when homepage isn't loaded first @done
+    - some articles don't have image shadow styling
 
 Mobile:
     - Recent posts on main page @done

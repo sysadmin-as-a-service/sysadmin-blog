@@ -1,15 +1,18 @@
 Overall, by NY:
     - create storage account/github pages/whatevs to host the site @done
     - add github actions or azure devops to build site on commit @done
-    - update DNS to point sysadminasaservice.blog to new site
+    - update DNS to point sysadminasaservice.blog to new site @done
     - add forwarding to existing wordpress site
+    - fix menu on mobile
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation @done
     - update colour of buttons to match site colours @done
     - update colour of links etc. to match site colours @done
     - fix issue with articles not populating when homepage isn't loaded first @done
-    - some articles don't have image shadow styling
+    - some articles don't have image shadow styling @done
+    - main title scrolls on mobile @done
+    - main title y is cut off @done
 
 Mobile:
     - Recent posts on main page @done
@@ -40,23 +43,23 @@ Extras:
     - add a contact button to homepage & navbar
     - add a tag cloud to the right hand side of blog page
     - make tags on recent posts clickable @done
-    - Add font awesome
+    - Add font awesome to buttons @done
 
 Styling:
     - create a new icon/logo @done
     - set icon on homepage @done
     - set favicon @done
-    - update logo on navbar
-    - update link styling to be more subtle, both in text and headers
-    - make the navbar menu item hover color site colours instead of blue
+    - update logo on navbar @done
+    - update link styling to be more subtle, both in text and headers @done
+    - make the navbar menu item hover color site colours instead of blue @done
     - lost the image shadows somehow, doesn't seem like img css is applying @done
-    - finish homepage hero animation
-    - fix colour of green/grey buttons
-    - change link and author tag colors to match palette
+    - finish homepage hero animation @done
+    - fix colour of green/grey buttons @done
+    - change link and author tag colors to match palette @done
 
 Mobile:
-    - fix up title of posts scroll bar
-    - homepage title too big
+    - fix up title of posts scroll bar @done
+    - homepage title too big @done
 
 Notes:
     - colours: #00BBD3 and #017282

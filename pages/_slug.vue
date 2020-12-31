@@ -10,7 +10,7 @@
                   <div class="media">
                       <div class="media-content has-text-centered mt-0">
                           <p class="title article-title">{{ article.title }}
-                          <div class="tags has-addons level-item">
+                          <div class="tags has-addons level-item mb-0">
                               <span class="tag is-rounded is-primary">sysadmin</span>
                               <span class="tag is-rounded">{{ articleDate }}</span>
                           </div>
@@ -53,8 +53,10 @@
 </script>
 
 <style scoped>
-
 img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 

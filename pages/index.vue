@@ -20,7 +20,7 @@
             class="button is-link is-medium is-outlined"
           >
             <span class="icon">
-              <i class="fab fa-align-right"></i>
+              <fa :icon="['fas','align-right']"></fa>
             </span>
             <span>
               blog
@@ -33,7 +33,7 @@
             class="button is-link is-medium is-outlined"
           >    
             <span class="icon">
-              <i class="fab fa-github"></i>
+              <fa :icon="['fab','github']"></fa>
             </span>
             <span>
               github
@@ -165,6 +165,11 @@ img {
 
 .NuxtLogo {
   max-width: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: lighter;
 }
 
 </style>

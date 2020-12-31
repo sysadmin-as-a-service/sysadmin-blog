@@ -18,8 +18,12 @@
     "sass-loader": "^10.1.0"
   },
   "devDependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "nuxt-fontawesome": "^0.4.0",
     "prettier": "^2.1.2"
   }
 }

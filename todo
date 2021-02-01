@@ -4,6 +4,7 @@ Overall, by NY:
     - update DNS to point sysadminasaservice.blog to new site @done
     - add forwarding to existing wordpress site
     - fix menu on mobile
+    - new blog post, why I built my blog or something
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation @done
@@ -14,6 +15,11 @@ Overall, by NY:
     - main title scrolls on mobile @done
     - main title y is cut off @done
 
+After NY!:
+    - trying to fix centering of logo
+    - need to make all WP links "work" on new site e.g. /2014/02/30/xyz should point to /xyz (and go to the right post)
+    - should do the new post
+
 Mobile:
     - Recent posts on main page @done
     - logo-y thing on main page @done
@@ -21,6 +27,7 @@ Mobile:
     - width of blog text on blog page @done
     - working menu
     - would be nice to remove shadow/box effect from blog page on mobile
+
     - visibility of Recent Posts & other column on blog page @done
     - make recent posts on homepage a little better @done
     - add descriptions to each article @done

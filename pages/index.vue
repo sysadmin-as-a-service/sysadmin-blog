@@ -1,46 +1,48 @@
 <template>
   <div>
-    <div class="columns has-text-centered is-vcentered">
-      <div class="logo pl-1 column is-one-quarter">
+    <div class="columns has-text-centered is-vcentered is-centered">
+      <!-- <div class="logo pl-1 column is-one-quarter">
+          
+      </div>   -->
+      <div class="column is-half ">
+
+        <div class="logo">
           <Logo />
-      </div>  
-      <div class="column is-half">
-        
-      <!-- <div class="typewriter">
-        <span class="title is-size-1">
-          sysadmin as a service
-        </span>
-      </div> -->
-
-      <typewriter text="sysadmin as a service."></typewriter>
-
-      <div class="links">
-          <nuxt-link
-            :to="$store.state.articles[0].slug"
-            class="button is-link is-medium is-outlined"
-          >
-            <span class="icon">
-              <fa :icon="['fas','align-right']"></fa>
-            </span>
-            <span>
-              blog
-            </span>
-          </nuxt-link>
-          <a
-            href="https://github.com/sysadmin-as-a-service"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="button is-link is-medium is-outlined"
-          >    
-            <span class="icon">
-              <fa :icon="['fab','github']"></fa>
-            </span>
-            <span>
-              github
-            </span>
-          </a>
         </div>
-      </div>   
+
+        <div>
+          <div>
+            <typewriter text="sysadmin as a service."></typewriter>
+          </div>        
+          <div class="links">
+              <nuxt-link
+                :to="$store.state.articles[0].slug"
+                class="button is-link is-medium is-outlined"
+              >
+                <span class="icon">
+                  <fa :icon="['fas','align-right']"></fa>
+                </span>
+                <span>
+                  blog
+                </span>
+              </nuxt-link>
+              <a
+                href="https://github.com/sysadmin-as-a-service"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button is-link is-medium is-outlined"
+              >    
+                <span class="icon">
+                  <fa :icon="['fab','github']"></fa>
+                </span>
+                <span>
+                  github
+                </span>
+              </a>
+            </div>
+        </div>
+          
+        </div>   
 
     </div>  
   
@@ -170,6 +172,11 @@ img {
 .title {
   font-size: 2rem;
   font-weight: lighter;
+}
+
+.logo {
+  width: 10em;
+  height: auto;
 }
 
 </style>

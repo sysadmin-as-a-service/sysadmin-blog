@@ -16,7 +16,7 @@ Overall, by NY:
     - main title y is cut off @done
 
 After NY!:
-    - trying to fix centering of logo
+    - trying to fix centering of logo @done
     - need to make all WP links "work" on new site e.g. /2014/02/30/xyz should point to /xyz (and go to the right post)
     - should do the new post
 
@@ -37,7 +37,6 @@ RecentPosts:
     - articles variable not loading for some reason @done
     - get recent posts component displaying on post viewer @done
     - make the recent posts on homepage into cards/boxes with short description @done
-    - make the whole media boxes clickable nuxt-links?
     - The links are relative so its going to /article1/article2 which obv doesn't work @done
 
 Store:

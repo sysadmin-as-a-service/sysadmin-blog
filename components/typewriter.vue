@@ -1,6 +1,6 @@
 <template>
     <div class="typewriter">
-        <span class="title is-size-1">
+        <span class="title is-1">
             {{ printedText }}<span class="cursor">|</span>
         </span>
     </div>
@@ -28,7 +28,7 @@ export default {
                   this.textIndexPos++
                 }
 
-                setTimeout( () => { this.typeText() }, 100 )
+                setTimeout( () => { this.typeText() }, 150 )
             }
         }
     },

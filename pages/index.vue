@@ -4,16 +4,16 @@
       <!-- <div class="logo pl-1 column is-one-quarter">
           
       </div>   -->
-      <div class="column is-half ">
+      <!-- <div class="column is-half "> -->
 
-        <div class="logo">
+        <!-- <div class="logo">
           <Logo />
-        </div>
+        </div> -->
 
-        <div>
-          <div>
+        <div class="hero">
+          <div class="hero-body">
             <typewriter text="sysadmin as a service."></typewriter>
-          </div>        
+
           <div class="links">
               <nuxt-link
                 :to="$store.state.articles[0].slug"
@@ -40,16 +40,17 @@
                 </span>
               </a>
             </div>
+            </div>        
         </div>
           
-        </div>   
+        <!-- </div>    -->
 
     </div>  
   
     <!-- Need to move this into component   -->
     <div class="container">
       <section>
-        <h1 class="title is-1">
+        <h1 class="title is-3">
           recent posts
         </h1>
   
@@ -127,33 +128,6 @@ export default {
   align-items: center;
   text-align: center;
 }
-
-/* .title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-} */
-
-/* .subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-} */
-
 .links {
   padding-top: 15px;
 }

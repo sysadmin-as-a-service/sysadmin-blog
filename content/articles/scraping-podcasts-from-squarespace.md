@@ -14,7 +14,7 @@ This perhaps goes without saying, but Squarespace has a [built-in podcast feed f
 
 My local church had recently visited the 21st Century and started posting messages online, which was great, but I wanted to get them in my podcast app as well!
 
-Sure, I could have asked someone to learn to use the Squarespace podcasting feature, or even volunteered to do it myself, but it was ~~easier~~ ~~more fulfilling~~ ~~cheaper~~ more entertaining to try script creating a podcast feed myself.
+Sure, I could have asked someone to learn to use the Squarespace podcasting feature, or even volunteered to do it myself, but it was ~~easier~~ ~~more fulfilling~~ ~~cheaper~~ more entertaining? to try script creating a podcast feed myself.
 
 The idea of the script here is that it 
 
@@ -22,9 +22,9 @@ The idea of the script here is that it
 - creates a new version of the podcast XML feed
 - uploads it to Azure
 
-We can then add the URL of the podcast XML feed to our podcast app, and it'll show those new episodes in our podcast feed!
+We can then add the URL of the podcast XML feed to our podcast app, and it'll show those episodes in our podcast feed!
 
-(I opted here to keep the podcast feed private, i.e. not submit it to Apple Podcasts etc. where everyone could see it.)
+(I opted here to keep the podcast feed private, i.e. not submit it to Apple Podcasts etc. where everyone could see it, in case anyone was uncool with me making a publicly available resource _more_ publicly available.)
 
 
 ## Steps

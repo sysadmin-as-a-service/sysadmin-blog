@@ -1,7 +1,7 @@
 ---
-title: "Scraping Podcasts From Squarespace"
+title: "Scraping Podcasts From Squarespace - Part One"
 date: "2021-02-17"
-published: false
+published: true
 description: 'Create a custom podcast feed from a Squarespace site'
 tags: ['Azure','PowerShell']
 ---
@@ -27,13 +27,13 @@ We can then add the URL of the podcast XML feed to our podcast app, and it'll sh
 (I opted here to keep the podcast feed private, i.e. not submit it to Apple Podcasts etc. where everyone could see it, in case anyone was uncool with me making a publicly available resource _more_ publicly available.)
 
 
-## Steps
+# Steps
 Pretty easy!
 - Create Azure Storage account and get access token
 - Upload our PowerShell script etc. to Azure Storage
 - Create an Azure Function to run our script daily
 
-### Set up Azure Storage
+# Set up Azure Storage
 OK, we're assuming a basic level of Azure-understanding here, like setting up a subscription, resource group, etc.!
 
 Find Azure Storage and create a new storage account, pick a unique storage account name.
@@ -55,7 +55,7 @@ Once you've created your storage account, create two new containers: 'public' (w
 
 ![](static/images/az-storage-4.png)
 
-## Azure Storage Permissions
+# Azure Storage Permissions
 
 Now, we need to create a shared access signature so that your script is able to modify the contents of this container.
 There's a few ways you can do this
@@ -74,7 +74,7 @@ Now, I copied the SAS URI and put it in a file sas-uri.token. I've ensured that 
 
 We're just doing this for testing at the moment as we'll move the token to Azure Key Vault - one of the advantages of using Azure Functions!
 
-## Test!!
+# Test!!
 
 Update the parameters of the Get-Podcast script to include your Azure Storage URL and SAS URI
 
@@ -94,7 +94,25 @@ Pushing podcast feed XML to blob storage
 
 Test your podcast XML on a site like [CastFeed Validator](https://castfeedvalidator.com) and make sure its validating OK before moving onto the next step.
 
-## Azure Function
+# Azure Function
 
+Again, assuming basic knowledge here!
 
+Create a new Function App in Azure. [You can do this inside VS Code](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-powershell), but I'll throw up some quick screenshots of doing it in Azure Portal.
+
+STOP.
+
+It's at this point that I realised a few things:
+
+- You can't run an Azure Function using "full" PowerShell (or "Desktop" PowerShell, whatever it's called. Not cool, cross platform, "PowerShell Core") - as far as I could see.
+
+- My original script relied heavily on Invoke-WebRequest and the ParsedHtml property of that object, which is not available in PowerShell Core, as it uses Internet Explorer's engine.
+
+- There's some hacky solutions copying some MSIE DLL's around, but :\
+
+- This needs a new blog post. Who doesn't like blog series??
+
+So, [here's the repo with the original v1 script](https://github.com/sysadmin-as-a-service/sqs-podcast-scraper). You can throw this up on a Windows or just run it on a Scheduled Task from your own computer.
+
+I promised Cloud though, so stay tuned for the next blog post which will cover converting this to run in PSCore and in an Azure Function!
 

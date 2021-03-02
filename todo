@@ -14,11 +14,16 @@ Overall, by NY:
     - some articles don't have image shadow styling @done
     - main title scrolls on mobile @done
     - main title y is cut off @done
-
-After NY!:
     - trying to fix centering of logo @done
     - need to make all WP links "work" on new site e.g. /2014/02/30/xyz should point to /xyz (and go to the right post)
+    Might be able to do with https://github.com/nuxt-community/router-extras-module
+        - need to read and add in staticwebapps config file https://docs.microsoft.com/en-us/azure/static-web-apps/configuration#routes
+        - need to generate routes in nuxt.config.js, because the routes I want to generate WON'T
+        exist as links anywhere in the app, so a crawler won't do jack. 
+        Need to do something like foreach date in articles.date, add route /year/month/day/slug
+    - create an error page as per https://nuxtjs.org/docs/2.x/deployment/deployment-azure-static-web-apps/#how-to-add-an-error-page
     - should do the new post
+    - 
 
 Mobile:
     - Recent posts on main page @done

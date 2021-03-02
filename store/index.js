@@ -5,7 +5,7 @@ export const state = () => ({
 
 export const mutations = {
     setArticles (state, articles) {
-        console.log('vuex: setting articles!')
+        // console.log('vuex: setting articles!')
         state.articles = articles
     },
     setArticle (state,article) {

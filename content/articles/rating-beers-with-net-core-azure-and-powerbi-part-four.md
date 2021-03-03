@@ -1,6 +1,6 @@
 ---
 title: "Rating Beers with .NET Core, Azure, and PowerBI - Part Four"
-date: "2020-02-17"
+date: "2020-02-18"
 published: true
 description: 'Part Four: PowerBI, and a suprising conclusion!'
 tags: ['.NET','PowerBI','Azure','Beer']

@@ -16,7 +16,12 @@ export default {
     ],
     bodyAttrs: {
       class: 'has-navbar-fixed-top'
-    }
+    },
+    script: [
+      {
+        src: 'clarity.js'
+      }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)

@@ -1,10 +1,12 @@
-Overall, by NY:
+Post Ideas:
+    - why (and how) I built this blog
+    - 100 days of code @done
+
+Site mechanics:
     - create storage account/github pages/whatevs to host the site @done
     - add github actions or azure devops to build site on commit @done
     - update DNS to point sysadminasaservice.blog to new site @done
     - add forwarding to existing wordpress site
-    - fix menu on mobile
-    - new blog post, why I built my blog or something
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation @done
@@ -17,7 +19,6 @@ Overall, by NY:
     - trying to fix centering of logo @done
     - need to make all WP links "work" on new site e.g. /2014/02/30/xyz should point to /xyz (and go to the right post) @done
     - create an error page as per https://nuxtjs.org/docs/2.x/deployment/deployment-azure-static-web-apps/#how-to-add-an-error-page @done
-    - do the 100 days post
     - add in clarity analytics @done
 
 Mobile:
@@ -45,7 +46,7 @@ Store:
 
 Extras:
     - add dark mode switch to navbar
-    - add Google or Bing Analytics
+    - add Google or Bing Analytics @done
     - add a contact button to homepage & navbar
     - add a tag cloud to the right hand side of blog page
     - make tags on recent posts clickable @done

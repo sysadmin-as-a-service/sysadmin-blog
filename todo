@@ -16,9 +16,9 @@ Overall, by NY:
     - main title y is cut off @done
     - trying to fix centering of logo @done
     - need to make all WP links "work" on new site e.g. /2014/02/30/xyz should point to /xyz (and go to the right post) @done
-    - create an error page as per https://nuxtjs.org/docs/2.x/deployment/deployment-azure-static-web-apps/#how-to-add-an-error-page
-    - should do the new post
-    - add in clarity analytics
+    - create an error page as per https://nuxtjs.org/docs/2.x/deployment/deployment-azure-static-web-apps/#how-to-add-an-error-page @done
+    - do the 100 days post
+    - add in clarity analytics @done
 
 Mobile:
     - Recent posts on main page @done

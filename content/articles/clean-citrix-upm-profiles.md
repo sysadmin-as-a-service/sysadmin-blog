@@ -57,60 +57,138 @@ Ta da.
 
  
 
-\[code language="powershell"\]
+```powershell
 
-######################################################################################### # Start up # Run from a VDA #########################################################################################
+######################################################################################### 
+# Start up 
+# Run from a VDA #########################################################################################
 
-do{ $user = Read-Host "Enter the SAMAccount name of the user you wish to clean up" #PathToUserStore $pathToUserStore = ((Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX").PathToUserStore -replace "#SAMAccountName#",$user) + "\\UPM\_PROFILE" if(!(Test-Path $pathToUserStore)){ Write-Host "Can't find $($pathToUserStore), re-enter your username." -fore Red } }until(Test-Path $pathToUserStore)
+do{ 
+    $user = Read-Host "Enter the SAMAccount name of the user you wish to clean up" 
+    #PathToUserStore 
+    $pathToUserStore = ((Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX").PathToUserStore -replace "#SAMAccountName#",$user) + "\\UPM\_PROFILE" 
+    
+    if(!(Test-Path $pathToUserStore)){ 
+        Write-Host "Can't find $($pathToUserStore), re-enter your username." -fore Red 
+    } 
+}until(Test-Path $pathToUserStore)
 
-Write-Host "Scanning UPM folder..." -fore yellow $savedFoldersList = @() $savedFilesList = @() $deleteFoldersList = @() $excFoldersList = @() $excFilesList = @() #SyncFileList foreach($file in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncFileList").SyncFileList){ $file = $file \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" # Also need to check if the file has a wildcard in it if($file -match "\\\*" -and $file -match "\\."){ # Get the parent directory of the file $periodIndex = $file.LastIndexOf(".") $parentDir = $file.Substring( 0,$periodIndex ) -replace "\\\*" $fileExt = $file.Substring( $periodIndex, ($file.Length - $periodIndex) ) foreach($wildcardFile in (gci -Path "$($pathToUserStore)\\$($parentDir)\*" -Include "\*$($fileExt)" -Force)){ $savedFilesList += $wildcardFile.FullName } }else{ $savedFilesList += "$($pathToUserStore)\\$($file)" }
+Write-Host "Scanning UPM folder..." -fore yellow $savedFoldersList = @() $savedFilesList = @() $deleteFoldersList = @() $excFoldersList = @() $excFilesList = @() #SyncFileList 
 
-} #SyncDirList foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncDirList").SyncDirList){ $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" $savedFoldersList += "$($pathToUserStore)\\$($folder)" } #MirrorFoldersList foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\MirrorFoldersList").MirrorFoldersList){ $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" $savedFoldersList += "$($pathToUserStore)\\$($folder)" } #SyncExclusionListDir foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncExclusionListDir").SyncExclusionListDir){ $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" $excFoldersList += "$($pathToUserStore)\\$($folder)" } #SyncExclusionListFiles foreach($file in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncExclusionListFiles").SyncExclusionListFiles){ $file = $file \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" # Also need to check if the file has a wildcard in it if($file -match "\\\*" -and $file -match "\\."){ # Get the parent directory of the file $periodIndex = $file.LastIndexOf(".") $parentDir = $file.Substring( 0,$periodIndex ) -replace "\\\*" $fileExt = $file.Substring( $periodIndex, ($file.Length - $periodIndex) ) $exFile = $null foreach($exFile in (gci -Path "$($pathToUserStore)\\$($parentDir)\*" -Include "\*$($fileExt)" -Force).FullName){ if($exFile){ $excFilesList += $exFile } } }else{ $excFilesList += "$($pathToUserStore)\\$($file)" } }
+foreach($file in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncFileList").SyncFileList){
+    $file = $file \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu"
+    
+     # Also need to check if the file has a wildcard in it 
+     if($file -match "\\\*" -and $file -match "\\."){ 
+         # Get the parent directory of the file 
+         
+         $periodIndex = $file.LastIndexOf(".") $parentDir = $file.Substring( 0,$periodIndex ) -replace "\\\*" 
+         
+         $fileExt = $file.Substring( $periodIndex, ($file.Length - $periodIndex) ) 
+         
+         foreach($wildcardFile in (gci -Path "$($pathToUserStore)\\$($parentDir)\*" -Include "\*$($fileExt)" -Force)){
+            $savedFilesList += $wildcardFile.FullName 
+        } 
+    }else{ 
+        $savedFilesList += "$($pathToUserStore)\\$($file)" }
 
-\# Add in system folders/folders $savedFoldersList += "$($pathToUserStore)\\Citrix" $savedFoldersList += "$($pathToUserStore)\\WINDOWS" $savedFoldersList += "$($pathToUserStore)\\AppData\\Roaming" foreach($file in (gci "$($pathToUserStore)\\\*" -Include \*.dat,\*.log\*,\*.blf,\*.ini,\*.pol,\*.bin -File -Force)){ $savedFilesList += $file.FullName }
+} 
+#SyncDirList 
+foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncDirList").SyncDirList){ 
 
-######################################################################################### # How many files...? #########################################################################################
+    $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu"
+    
+    $savedFoldersList += "$($pathToUserStore)\\$($folder)" 
+    
+} 
+
+#MirrorFoldersList 
+foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\MirrorFoldersList").MirrorFoldersList){ 
+    
+    $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" 
+    
+    $savedFoldersList += "$($pathToUserStore)\\$($folder)" 
+} 
+    
+#SyncExclusionListDir 
+foreach($folder in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncExclusionListDir").SyncExclusionListDir){ 
+    
+    $folder = $folder \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu" 
+    
+    $excFoldersList += "$($pathToUserStore)\\$($folder)" 
+} 
+#SyncExclusionListFiles
+foreach($file in (Get-ItemProperty "HKLM:\\Software\\Policies\\Citrix\\UserProfileManagerHDX\\SyncExclusionListFiles").SyncExclusionListFiles){
+    
+     $file = $file \` -replace "!ctx\_localappdata!","AppData\\Local" \` -replace "!ctx\_internetcache!","AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files" \` -replace "!ctx\_localsettings!","AppData\\Local" \` -replace "!ctx\_roamingappdata!","AppData\\Roaming" \` -replace "!ctx\_startmenu!","AppData\\Roaming\\Microsoft\\Windows\\Start Menu"
+     
+      # Also need to check if the file has a wildcard in it 
+      
+      if($file -match "\\\*" -and $file -match "\\."){
+           # Get the parent directory of the file 
+           
+           $periodIndex = $file.LastIndexOf(".") $parentDir = $file.Substring( 0,$periodIndex ) -replace "\\\*" $fileExt = $file.Substring( $periodIndex, ($file.Length - $periodIndex) ) $exFile = $null foreach($exFile in (gci -Path "$($pathToUserStore)\\$($parentDir)\*" -Include "\*$($fileExt)" -Force).FullName){ if($exFile){ $excFilesList += $exFile } } }else{ $excFilesList += "$($pathToUserStore)\\$($file)" 
+        } 
+    }
+
+# Add in system folders/folders
+
+$savedFoldersList += "$($pathToUserStore)\\Citrix" $savedFoldersList += "$($pathToUserStore)\\WINDOWS" $savedFoldersList += "$($pathToUserStore)\\AppData\\Roaming" 
+
+foreach($file in (gci "$($pathToUserStore)\\\*" -Include \*.dat,\*.log\*,\*.blf,\*.ini,\*.pol,\*.bin -File -Force)){ 
+    $savedFilesList += $file.FullName 
+}
+
+######################################################################################### 
+# How many files...? #########################################################################################
 
 $preFileCount = (Get-Item $pathToUserStore).GetFiles("\*",\[System.IO.SearchOption\]::AllDirectories).Count
 
-######################################################################################### # Copy only the saved FOLDERS to a new location #########################################################################################
+######################################################################################### 
+# Copy only the saved FOLDERS to a new location #########################################################################################
 
 Write-Host "Copying saved folders to new location"
 
 $folder = $null $pathToNewUserStore = $pathToUserStore -replace "UPM\_PROFILE","UPM\_PROFILE\_NEW" if(!(Test-Path $pathToNewUserStore)){ mkdir $pathToNewUserStore | Out-Null } foreach($folder in $savedFoldersList){ $destDir = ( $folder -replace \[regex\]::Escape($pathToUserStore),$pathToNewUserStore ) robocopy $folder $destDir /e /r:0 /w:0 /mt:64 /dcopy:t /copyall /log:robocopy.log | Out-Null }
 
-######################################################################################### # Copy only the saved FILES to a new location #########################################################################################
+######################################################################################### 
+# Copy only the saved FILES to a new location #########################################################################################
 
 Write-Host "Copying saved files to new location"
 
 $file = $null foreach($file in $savedFilesList){ $destFile = ( $file -replace \[regex\]::Escape($pathToUserStore),$pathToNewUserStore ) if(Test-Path $file){ New-Item -ItemType File -Path $destFile -Force | Out-Null Copy-Item -Path $file -Destination $destFile -Force | Out-Null } }
 
-######################################################################################### # Now delete the $excFoldersList from our copied profile #########################################################################################
+######################################################################################### 
+# Now delete the $excFoldersList from our copied profile #########################################################################################
 
 Write-Host "Deleting excluded folders from new profile"
 
 $folder = $null foreach($folder in $excFoldersList){ $folder = ($folder -replace \[regex\]::Escape($pathToUserStore),$pathToNewUserStore) if(Test-Path $folder){ Remove-Item $folder -Recurse } }
 
-######################################################################################### # Now delete the $excFilesList from our copied profile #########################################################################################
+######################################################################################### 
+# Now delete the $excFilesList from our copied profile #########################################################################################
 
 Write-Host "Deleting excluded files from new profile"
 
 $file = $null foreach($file in $excFilesList){ $destFile = ( $file -replace \[regex\]::Escape($pathToUserStore),$pathToNewUserStore ) Remove-Item $destFile -Force }
 
-######################################################################################### # Remove/rename the old profile folder #########################################################################################
+######################################################################################### 
+# Remove/rename the old profile folder #########################################################################################
 
 Write-Host "Renaming profile folders"
 
 Rename-Item $pathToUserStore "$($pathToUserStore).upm\_backup\_$(Get-Date -Format dd\_MM\_yy)" sleep 1 Rename-Item $pathToNewUserStore $pathToUserStore
 
-######################################################################################### # Reset permissions #########################################################################################
+######################################################################################### 
+# Reset permissions #########################################################################################
 
 Write-Host "Resetting permissions"
 
-icacls.exe $pathToUserStore /setowner $user /T /C /Q | Out-Null icacls.exe $pathToUserStore /reset /T /C /Q | Out-Null
+icacls.exe $pathToUserStore /setowner $user /T /C /Q | Out-Null 
+icacls.exe $pathToUserStore /reset /T /C /Q | Out-Null
 
 $postFileCount = (Get-Item $pathToUserStore).GetFiles("\*",\[System.IO.SearchOption\]::AllDirectories).Count
 
 Write-Host "Removed a total of $($preFileCount - $postFileCount) files." -fore yellow
 
-\[/code\]
+```

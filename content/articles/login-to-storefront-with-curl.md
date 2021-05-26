@@ -20,41 +20,73 @@ So. Let's start with the full script. As mentioned, this was scripted to login 
 
 https://desktop.saaas.com is the URL of our Netscaler Gateway vServer.
 
-\[code language="powershell"\]
+And apologies, I just copy/pasted most of the headers from Fiddler, as I wasn't 100% sure which were _actually_ required for each stage.
 
-$curlPath = "C:\\cURL" $outputFile = "$curlPath\\Login.txt" $cookieJar = "$curlPath\\cookie.txt" $icaProg = "C:\\Program Files (x86)\\Citrix\\ICA Client\\wfica32.exe" $deliveryGroupName = "SysAdmin As A Service Desktop" $username = "user@saaas.com" $password = "MyPassword"
+## 1. Get initial logon cookies
+```powershell
+$curlPath = "C:\cURL"
+$outputFile = "$curlPath\Login.txt"
+$cookieJar = "$curlPath\cookie.txt"
+$icaProg = "C:\Program Files (x86)\Citrix\ICA Client\wfica32.exe" 
+$deliveryGroupName = "SysAdmin As A Service Desktop"
+$username = "user@saaas.com"
+$password = "MyPassword"
 
 $step = 1
 
-.\\curl.exe  --cookie-jar $cookieJar --output "$($curlPath)\\OUTPUT1.txt" \` --data "login=$($username)&passwd=$($password)" \` \` --header 'Accept: text/html, application/xhtml+xml, image/jxr, \*/\*' \` --header 'Referer: https://desktop.saaas.com/vpn/index.html' \` "https://desktop.saaas.com/cgi/login"</div>
+.\curl.exe  --cookie-jar $cookieJar --output "$($curlPath)\OUTPUT1.txt" --data "login=$($username)&passwd=$($password)" --header 'Accept: text/html, application/xhtml+xml, image/jxr, */*' --header 'Referer: https://desktop.saaas.com/vpn/index.html' "https://desktop.saaas.com/cgi/login"
+```
 
-\# 2. /home/configuration - Get CSRF Token & ASP Session ID $step = 2 .\\curl.exe --request POST --location --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\\OUTPUT2.txt" \` --dump-header "$($curlPath)\\CSRF-Token.txt" \` --cacert "$($curlPath)\\curl-ca-bundle.crt" \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header 'Content-Length: 0'\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` "https://desktop.saaas.com/Citrix/StoreWeb/Home/Configuration"
 
-\# 3. Find CSRF Token $step = 3
+## 2. /home/configuration - Get CSRF Token & ASP Session ID
+```powershell
+$step = 2 
+.\curl.exe --request POST --location --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\OUTPUT2.txt" --dump-header "$($curlPath)\CSRF-Token.txt" --cacert "$($curlPath)\curl-ca-bundle.crt" --header 'Accept: application/xml, text/xml, */*; q=0.01' --header 'Content-Length: 0' --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' "https://desktop.saaas.com/Citrix/StoreWeb/Home/Configuration"
+```
 
-$headers = Get-Content "$($curlPath)\\CSRF-Token.txt" | Select-String "Set-Cookie: CsrfToken=" $csrfToken = ($headers -split "=" -split ";")\[1\] #echo ($csrfToken)</div>
+## 3. Find CSRF Token
+```powershell
+$step = 3
 
-\# Storefront GetAuthMethods - must do this before login .\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\\OUTPUT3.txt" \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --header 'Content-Length: 0'\` "https://desktop.saaas.com/Citrix/StoreWeb/Authentication/GetAuthMethods"
+$headers = Get-Content "$($curlPath)\CSRF-Token.txt" | Select-String "Set-Cookie: CsrfToken=" $csrfToken = ($headers -split "=" -split ";")[1]
+echo ($csrfToken)
+```
 
-\# 4. storefront login $step = 4
+## 3a. Storefront GetAuthMethods - must do this before login
+```powershell
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\OUTPUT3.txt"  --header 'Accept: application/xml, text/xml, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --header 'Content-Length: 0' "https://desktop.saaas.com/Citrix/StoreWeb/Authentication/GetAuthMethods"
+```
 
-.\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --header 'Content-Length: 0'\` "https://desktop.saaas.com/Citrix/StoreWeb/GatewayAuth/Login"</div>
+## 4. Storefront login 
 
-\# 5. List resources $step = 5
+```powershell
+$step = 4
 
-.\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar  \` --output "$($curlPath)\\Resources.json" \` \` --header 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'\` --header 'Accept: application/json, text/javascript, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --data "format=json&resourceDetails=Default" \` "https://desktop.saaas.com/Citrix/StoreWeb/Resources/List"
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar  --header 'Accept: application/xml, text/xml, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --header 'Content-Length: 0' "https://desktop.saaas.com/Citrix/StoreWeb/GatewayAuth/Login"
+```
 
-$j = (Get-Content "$curlPath\\Resources.json" -Raw) | ConvertFrom-Json $desktopDeliveryGroup = $j.resources | where {$\_.name -eq "Sysadmin As A Service Desktop"}
+## 5. List resources 
+```powershell
+$step = 5
 
-\# 6. Launch URL $step = 6
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar   --output "$($curlPath)\Resources.json"   --header 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --header 'Accept: application/json, text/javascript, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --data "format=json&resourceDetails=Default"  "https://desktop.saaas.com/Citrix/StoreWeb/Resources/List"
 
-.\\curl.exe --request GET --cookie-jar $cookieJar --cookie $cookieJar \` --output "$($curlPath)\\launch.ica"\` "https://desktop.saaas.com/Citrix/StoreWeb/Resources/LaunchIca/$($desktopDeliveryGroup.id).ica?CsrfToken=$($csrfToken)&IsUsingHttps=Yes"
+$j = (Get-Content "$curlPath\Resources.json" -Raw) | ConvertFrom-Json $desktopDeliveryGroup = $j.resources | where {$\_.name -eq "Sysadmin As A Service Desktop"}
+```
 
-\# 7. Launch Desktop $step = 7
+## 6. Launch URL 
+```powershell
+$step = 6
 
-Start-Process "$($curlPath)\\launch.ica"
+.\curl.exe --request GET --cookie-jar $cookieJar --cookie $cookieJar  --output "$($curlPath)\launch.ica" "https://desktop.saaas.com/Citrix/StoreWeb/Resources/LaunchIca/$($desktopDeliveryGroup.id).ica?CsrfToken=$($csrfToken)&IsUsingHttps=Yes"
+```
 
-\[/code\]
+## 7. Launch Desktop 
+```powershell
+$step = 7
+
+Start-Process "$($curlPath)\launch.ica"
+```
 
 Ok, now let's break it down into steps.
 
@@ -62,83 +94,83 @@ Ok, now let's break it down into steps.
 
 This is pretty straightforward - just pass the username & password in the data portion of cURL, and store the cookie in a file.
 
-\[code language="powershell"\]
+```powershell
 
-.\\curl.exe  --location --cookie-jar $cookieJar --output "$($curlPath)\\OUTPUT1.txt" \` --data "login=$($username)&passwd=$($password)" \` \` --header 'Accept: text/html, application/xhtml+xml, image/jxr, \*/\*' \` --header 'Referer: https://desktop.saaas.com/vpn/index.html' \` "https://desktop.saaas.com/cgi/login"
+.\curl.exe  --location --cookie-jar $cookieJar --output "$($curlPath)\OUTPUT1.txt"  --data "login=$($username)&passwd=$($password)"   --header 'Accept: text/html, application/xhtml+xml, image/jxr, */*'  --header 'Referer: https://desktop.saaas.com/vpn/index.html'  "https://desktop.saaas.com/cgi/login"
 
-\[/code\]
+```
 
 **Step 2: Get CSRF Token & ASP.NET session ID**
 
 This step is pretty important - it's the first call to our Storefront server, and when we get the CSRF token and ASP.NET session ID. Without these passed into every subsequent call to Storefront, you'll get a 403 Forbidden response.
 
-\[code language="powershell"\]
+```powershell
 
-<div>.\\curl.exe --request POST --location --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\\OUTPUT2.txt" \` --dump-header "$($curlPath)\\CSRF-Token.txt" \` --cacert "$($curlPath)\\curl-ca-bundle.crt" \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header 'Content-Length: 0'\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` "https://desktop.saaas.com/Citrix/StoreWeb/Home/Configuration"</div>
+<div>.\curl.exe --request POST --location --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\OUTPUT2.txt"  --dump-header "$($curlPath)\CSRF-Token.txt"  --cacert "$($curlPath)\curl-ca-bundle.crt"  --header 'Accept: application/xml, text/xml, */*; q=0.01' --header 'Content-Length: 0' --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' "https://desktop.saaas.com/Citrix/StoreWeb/Home/Configuration"
 
-\[/code\]
+```
 
 **Step 3: Store the CSRF token in a new variable**
 
 This takes the response from Step 2 and stores the CSRF token in a new variable.
 
-\[code language="powershell"\]
+```powershell
 
-$headers = Get-Content "$($curlPath)\\CSRF-Token.txt" | Select-String "Set-Cookie: CsrfToken=" $csrfToken = ($headers -split "=" -split ";")\[1\] #echo ($csrfToken)
+$headers = Get-Content "$($curlPath)\CSRF-Token.txt" | Select-String "Set-Cookie: CsrfToken=" $csrfToken = ($headers -split "=" -split ";")\[1\] #echo ($csrfToken)
 
-\[/code\]
+```
 
 **Step 3b: Get Authentication Methods from Storefront**
 
 Although we know what Authentication method we want to use to log into the Storefront (passthrough from Netscaler Gateway), we still need to initiate GetAuthMethods before Storefront will be ready for us to send a login request.
 
-\[code language="powershell"\]
+```powershell
 
-.\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\\OUTPUT3.txt" \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --header 'Content-Length: 0'\` "https://desktop.saaas.com/Citrix/StoreWeb/Authentication/GetAuthMethods"
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar --output "$($curlPath)\OUTPUT3.txt"  --header 'Accept: application/xml, text/xml, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --header 'Content-Length: 0' "https://desktop.saaas.com/Citrix/StoreWeb/Authentication/GetAuthMethods"
 
-\[/code\]
+```
 
 **Step 4: Login to Storefront**
 
 Finally, we can login to the Storefront by passing our cookie with our NSC\_AAAC token to the Storefront server.
 
-\[code language="powershell"\]
+```powershell
 
-.\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar \` --header 'Accept: application/xml, text/xml, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --header 'Content-Length: 0'\` "https://desktop.saaas.com/Citrix/StoreWeb/GatewayAuth/Login"
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar  --header 'Accept: application/xml, text/xml, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --header 'Content-Length: 0' "https://desktop.saaas.com/Citrix/StoreWeb/GatewayAuth/Login"
 
-\[/code\]
+```
 
 **Step 5: List Resources**
 
 Now, we request a list of all available resources (Delivery Groups & Published Apps) from the Storefront server. We'll get back a JSON file with names, IDs and launch URLs. Then, we parse the output to select the resource name of our chosen Delivery Group.
 
-\[code language="powershell"\]
+```powershell
 
-.\\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar  \` --output "$($curlPath)\\Resources.json" \` \` --header 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'\` --header 'Accept: application/json, text/javascript, \*/\*; q=0.01'\` --header "Csrf-Token: $($csrfToken)"\` --header 'X-Citrix-IsUsingHTTPS: Yes'\` --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/'\` --data "format=json&resourceDetails=Default" \` "https://desktop.saaas.com/Citrix/StoreWeb/Resources/List"
+.\curl.exe --request POST --cookie-jar $cookieJar --cookie $cookieJar   --output "$($curlPath)\Resources.json"   --header 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --header 'Accept: application/json, text/javascript, */*; q=0.01' --header "Csrf-Token: $($csrfToken)" --header 'X-Citrix-IsUsingHTTPS: Yes' --header 'Referer: https://desktop.saaas.com/Citrix/StoreWeb/' --data "format=json&resourceDetails=Default"  "https://desktop.saaas.com/Citrix/StoreWeb/Resources/List"
 
-$j = (Get-Content "$curlPath\\Resources.json" -Raw) | ConvertFrom-Json $desktopDeliveryGroup = $j.resources | where {$\_.name -eq $deliveryGroupName}
+$j = (Get-Content "$curlPath\Resources.json" -Raw) | ConvertFrom-Json $desktopDeliveryGroup = $j.resources | where {$\_.name -eq $deliveryGroupName}
 
-\[/code\]
+```
 
 **Step 6: Get Launch.ica file**
 
 This is where we request the ICA file of our chosen Delivery Group and save the output as launch.ica
 
-\[code language="powershell"\]
+```powershell
 
-.\\curl.exe --request GET --cookie-jar $cookieJar --cookie $cookieJar \` --output "$($curlPath)\\launch.ica"\` "https://desktop.saaas.com/Citrix/StoreWeb/Resources/LaunchIca/$($desktopDeliveryGroup.id).ica?CsrfToken=$($csrfToken)&IsUsingHttps=Yes"
+.\curl.exe --request GET --cookie-jar $cookieJar --cookie $cookieJar  --output "$($curlPath)\launch.ica" "https://desktop.saaas.com/Citrix/StoreWeb/Resources/LaunchIca/$($desktopDeliveryGroup.id).ica?CsrfToken=$($csrfToken)&IsUsingHttps=Yes"
 
-\[/code\]
+```
 
 **Step 7: Launch!**
 
 Finally, we launch Citrix using wfica32.exe and our launch.ica file
 
-\[code language="powershell"\]
+```powershell
 
-Start-Process "$($curlPath)\\launch.ica"
+Start-Process "$($curlPath)\launch.ica"
 
-\[/code\]
+```
 
 Congratulations! You have now logged into & launched a Citrix session using the Storefront API.
 

@@ -42,7 +42,7 @@ export default {
       component: 'fa', //customize component name
       imports: [{
           set: '@fortawesome/free-solid-svg-icons',
-          icons: ['faAlignRight']
+          icons: ['faAlignRight','faInfo']
           },
           {set: '@fortawesome/free-brands-svg-icons',
           icons: ['faGithub']

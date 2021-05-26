@@ -39,6 +39,21 @@
                   github
                 </span>
               </a>
+
+              <a
+                href="https://resume.sysadminasaservice.blog"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button is-link is-medium is-outlined"
+              >    
+                <span class="icon">
+                  <fa :icon="['fas','info']"></fa>
+                </span>
+                <span>
+                  about me
+                </span>
+              </a>
+
             </div>
             </div>        
         </div>

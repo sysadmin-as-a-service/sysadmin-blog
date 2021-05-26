@@ -17,6 +17,7 @@
         <div class="navbar-start">
             <a href="/" class="navbar-item is-tab"><fa :icon="['fas','align-right']"></fa><span class="ml-2">blog</span></a>
             <a href="https://github.com/sysadmin-as-a-service" class="navbar-item is-tab"><fa :icon="['fab','github']"></fa><span class="ml-2">github</span></a>
+            <a href="https://resume.sysadminasaservice.blog" class="navbar-item is-tab"><fa :icon="['fas','info']"></fa><span class="ml-2">about me</span></a>
         </div>
         <div class="navbar-end">
 

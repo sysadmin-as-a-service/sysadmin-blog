@@ -1,20 +1,5 @@
-# sysadmin-blog
+# Blog!
 
-## Build Setup
+Repo for my personal blog [www.sysadminasaservice.blog](https://www.sysadminasaservice.blog)
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Feel free to fork and use for your own blog, but please write your own content...?

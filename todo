@@ -6,7 +6,7 @@ Site mechanics:
     - create storage account/github pages/whatevs to host the site @done
     - add github actions or azure devops to build site on commit @done
     - update DNS to point sysadminasaservice.blog to new site @done
-    - add forwarding to existing wordpress site
+    - add forwarding to existing wordpress site @done
     - make the logo on the navbar resize properly @done
     - make a tag-search page that you're routed to by clicking on a tag @done
     - update the home page animation to do a clean misspelling, retyping animation @done

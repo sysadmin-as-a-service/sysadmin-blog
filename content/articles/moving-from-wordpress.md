@@ -62,20 +62,83 @@ This was possibly harder than choosing a static site generator... there are hund
 It'd probably be great for a more complex site in future, but I just wanted a simple, clean blog and found [Bulma](https://bulma.io/) hit all the right notes.
 
 
+# Markdown
+Markdown is pretty easy to write in, once you start to remember _all_ the **little** [shortcuts](www.google.com) etc.
 
+There's one thing that makes your blog much better though, and its a bit tricky to do when you're writing in Markdown: 
 
-# sss
+~~ads~~ pics!
 
-workarounds with markdown
-- markdown paste
-- image tags?
+I solved this problem with a great VS Code extension called [Markdown Paste](https://marketplace.visualstudio.com/items?itemName=telesoho.vscode-markdown-paste-image)
 
-bulma
-- setting up scss to change variable colours
+With Markdown Paste, you can take a screen clipping, and hit a keycombo in VSCode, and it'll save the image in your clipboard into a png file, add it to a specified place in your repo (e.g. /images/image123.png), and then add a link to it in your Markdown file. 
 
-nuxt
-    adding routes for wordpress links
+Super easy!
 
-clarity
+# Nuxt Routing
 
-forwarding from wordpress
+The ~~nuxt~~ next problem I encountered was because of good 'ole WordPress. You see, I'd built up a bit of a link following around the internet on some other much-better-blogs, and received quite a bit of traffic from them. I didn't want to lose this traffic, and so I needed to make sure that requests to myoldblog.wordpress.com were redirected to mynewblog.com.
+
+WordPress makes redirecting to a new site [quite easy to do](https://wordpress.com/support/site-redirect/) (although you have to pay for the privilege), all the links scattered around the internet were using WordPress' old year/month/day/post name format, e.g. myoldblog.wordpress.com/2014/02/12/blog-about-something-cool
+
+So, I needed to make sure my _new_ blog would take /2014/02/12/blog-about-something-cool and redirect it to /blog-about-something-cool.
+
+Nuxt makes this possible using [Dynamic Routes](https://nuxtjs.org/docs/2.x/features/file-system-routing#dynamic-routes). You set up some folders starting with an underscore, and Nuxt generates the routes for you!
+
+This works SUPER well if you're doing an SSR app. _However_ if you're hooked on buzzwords you're probably doing a static site, and so you need to generate these routes during the build process.
+
+Thankfully, I had saved the publish dates of the posts in the front matter of the markdown files, so "all I had to do" was write a function that would go through all the blog posts, figure out what the Publish Date was, then generate a route for it at /year/month/day/postname.
+
+Now, when I run `nuxt generate` this function runs, and generates a new static page for that blog article at /year/month/day/postname (as well as the default one for /postname).
+
+Just add the below to the appropriate place in your `nuxt.config.js` file:
+```javascript
+generate: {
+    async routes () {
+      const { $content } = require('@nuxt/content')
+      const files = await $content({ deep: true }).fetch()
+      var routes = [] 
+      for(var i = 0; i < files.length; i++){
+        var file = files[i]
+        if(file.path === '/index'){
+          routes.push("/")
+        }else if(file.date != null){
+          // add an additional route for old wordpress links
+          var d = new Date(file.date)
+          var year = d.getFullYear()
+          // to make it 2 digit and JS months are 0-indexed
+          var month = (d.getMonth()+ 1).toLocaleString(undefined,{minimumIntegerDigits: 2})
+          var day = d.getDate().toLocaleString(undefined,{minimumIntegerDigits: 2})
+          routes.push("/" + year + "/" + month + "/" + day + "/" + file.slug)
+        }
+        
+      }
+      return routes
+      // return files.map(file => file.path === '/index' ? '/' : file.path)
+    }
+  },
+  ```
+
+# Microsoft Clarity
+One thing I did really like about WordPress.com was the Site Analytics. It gives you some pretty reasonable stats on what posts are successful, where your traffic is being generated from, and from what parts of the world.
+
+I wanted to try using Clarity as it was meant to be New and Cool and Not Google. It was pretty simple to install - create a new project in [Clarity](https://clarity.microsoft.com), download the provided JavaScript file (which makes funny use of arguments to spell C L A R I T Y)
+
+![](images/clarity-args.png)
+
+You then save this into your static folder, and add it as a script tag in your `nuxt.config.js` file.
+
+```javascript
+  head: {
+    title: 'sysadmin as a service',
+    script: [
+      {
+        src: 'clarity.js'
+      }
+    ]
+  },
+  ```
+
+Uuuuuuuunfortunately its currently broken so I can't show you anything.
+
+![](images/clarity.png)

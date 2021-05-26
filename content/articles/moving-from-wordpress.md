@@ -1,7 +1,7 @@
 ---
 title: "Moving from WordPress to a Static Site"
 date: "2021-03-09"
-published: false
+published: true
 description: 'WordPress -replace "(word)(press)","buzz$1"'
 tags: ['JavaScript','Azure']
 ---

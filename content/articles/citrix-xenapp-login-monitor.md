@@ -57,73 +57,152 @@ Disable these for your monitoring accounts, ideally through Citrix policies. It 
 
 OK, here goes... I always hate posting code online as I tend to see the glaring errors, poor naming conventions and general shoddiness of the code... if it bugs you - clean it up and post me a nicer, shinier version!
 
-\[code language="powershell"\]
+```powershell
 
 $start = Get-Date
 
 #Get list of servers Write-Host "Generating list of servers from XenApp 6.5 and XenApp 7.6 environments" -fore Cyan
 
-\## XenApp 7.6 try{ $xa76session = New-PSSession -ComputerName XA76DC01.saaas.com Invoke-Command -Session $xa76session -ScriptBlock {Add-PSSnapin Citrix\*} $XA76Servers = Invoke-Command -Session $xa76session -ScriptBlock {Get-BrokerMachine | select @{n="ServerName";e={$\_.DNSName -replace "\\.saaas.com"}},InMaintenanceMode} | Select ServerName,InMaintenanceMode
+## XenApp 7.6 
+try{ 
+    $xa76session = New-PSSession -ComputerName XA76DC01.saaas.com Invoke-Command -Session $xa76session -ScriptBlock {Add-PSSnapin Citrix\*}
+    $XA76Servers = Invoke-Command -Session $xa76session -ScriptBlock {Get-BrokerMachine | select @{n="ServerName";e={$_.DNSName -replace "\\.saaas.com"}},InMaintenanceMode} | Select ServerName,InMaintenanceMode
+}catch{ 
+    Write-Host "Failed to retrieve list of servers from XenApp 7.6 farm. Using default list." -fore Yellow 
+    $XA76Servers = Import-CSV "C:\Scripts\LoginMonitor\ServerLists\XA76Servers.csv" }
 
-}catch{ Write-Host "Failed to retrieve list of servers from XenApp 7.6 farm. Using default list." -fore Yellow $XA76Servers = Import-CSV "C:\\Scripts\\LoginMonitor\\ServerLists\\XA76Servers.csv" }
+## XenApp 6.5 
+try{ 
+    $xa65Session = New-PSSession -ComputerName XA65ZDC01.saaas.com -ErrorAction SilentlyContinue Invoke-Command -Session $xa65session -ScriptBlock {Add-PSSnapin Citrix\*} $XA65servers = Invoke-Command -Session $xa65session -ScriptBlock {Get-XAServer | select ServerName,@{n="InMaintenanceMode";e={ 
+        if($_.LogOnMode -like "Prohibit\*"){$true}elseif($_.LogOnMode -eq "AllowLogons"){$false}
+        }} } | Select ServerName,InMaintenanceMode 
+}catch{ 
+    Write-Host "Failed to retrieve list of servers from XenApp 6.5 farm. Using default list." -fore Yellow 
+    $XA65Servers = Import-CSV "C:\Scripts\LoginMonitor\ServerLists\XA65Servers.csv" 
+}
+Write-Host "Got list of servers, closing connection to XenApp farms" -fore Cyan 
+if($xa65Session){ Remove-PSSession $xa65Session } if($xa76session){ Remove-PSSession $xa76session }
 
-\## XenApp 6.5 try{ $xa65Session = New-PSSession -ComputerName XA65ZDC01.saaas.com -ErrorAction SilentlyContinue Invoke-Command -Session $xa65session -ScriptBlock {Add-PSSnapin Citrix\*} $XA65servers = Invoke-Command -Session $xa65session -ScriptBlock {Get-XAServer | select ServerName,@{n="InMaintenanceMode";e={ if($\_.LogOnMode -like "Prohibit\*"){$true}elseif($\_.LogOnMode -eq "AllowLogons"){$false} }} } | Select ServerName,InMaintenanceMode }catch{ Write-Host "Failed to retrieve list of servers from XenApp 6.5 farm. Using default list." -fore Yellow $XA65Servers = Import-CSV "C:\\Scripts\\LoginMonitor\\ServerLists\\XA65Servers.csv" }
+# Global variables 
+$masterResultTable = Import-CSV "C:\Scripts\LoginMonitor\LoginMonitorResults.csv" 
+## Set the logon user for the 7.6 and 6.5 farms respectively 
+$XA76Servers | Add-Member -MemberType NoteProperty -Name LogonUser -Value "MonitoringService-2012R2" 
+$XA65Servers | Add-Member -MemberType NoteProperty -Name LogonUser -Value "MonitoringService-2008R2" 
+$servers = $null 
+$servers += $XA76Servers 
+$servers += $XA65Servers
 
-Write-Host "Got list of servers, closing connection to XenApp farms" -fore Cyan if($xa65Session){ Remove-PSSession $xa65Session } if($xa76session){ Remove-PSSession $xa76session }
+# Create ICA Template 
+$icaTemplate = @"
+[Encoding]
+InputEncoding = ISO8859_1 
+[WFClient] 
+Version=2 
+ProxyType=None 
+HttpBrowserAddress=XASERVER:80 
+ConnectionBar=0 
+CDMAllowed=False 
+CPMAllowed=Off
 
-\# Global variables $masterResultTable = Import-CSV "C:\\Scripts\\LoginMonitor\\LoginMonitorResults.csv" ## Set the logon user for the 7.6 and 6.5 farms respectively $XA76Servers | Add-Member -MemberType NoteProperty -Name LogonUser -Value "MonitoringService-2012R2" $XA65Servers | Add-Member -MemberType NoteProperty -Name LogonUser -Value "MonitoringService-2008R2" $servers = $null $servers += $XA76Servers $servers += $XA65Servers
+[ApplicationServers] 
+XASERVER=
 
-\# Create ICA Template $icaTemplate = '\[Encoding\] InputEncoding = ISO8859\_1 \[WFClient\] Version=2 ProxyType=None HttpBrowserAddress=XASERVER:80 ConnectionBar=0 CDMAllowed=False CPMAllowed=Off
+[XASERVER] 
+Address=XASERVER 
+InitialProgram= 
+CGPAddress=\*:2598 
+ClientAudio=Off 
+DesiredColor=2 
+DesiredHRes = 1024 
+DesiredVRes = 768 
+TWIMode = False 
+KeyboardTimer = 0 
+MouseTimer = 0 
+ConnectionBar=0 
+Username=XAUSERNAME 
+Clearpassword=MonitoringServicePassword 
+Domain=saaas 
+TransportDriver=TCP/IP 
+WinStationDriver=ICA 3.0 
+BrowserProtocol=HTTPonTCP 
+Compress=On 
+EncryptionLevelSession=Basic 
+[Encrypt] 
+DriverNameWin32=PDCRYPTN.DLL 
+DriverNameWin16=PDCRYPTW.DLL 
+[Compress] 
+DriverName=PDCOMP.DLL 
+DriverNameWin16=PDCOMPW.DLL 
+DriverNameWin32=PDCOMPN.DLL
+"@
 
-\[ApplicationServers\] XASERVER=
+# Find my session ID (so I don't go closing other people's processes!) 
+$session = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
 
-\[XASERVER\] Address=XASERVER InitialProgram= CGPAddress=\*:2598 ClientAudio=Off DesiredColor=2 DesiredHRes = 1024 DesiredVRes = 768 TWIMode = False KeyboardTimer = 0 MouseTimer = 0 ConnectionBar=0 Username=XAUSERNAME Clearpassword=MonitoringServicePassword Domain=saaas TransportDriver=TCP/IP WinStationDriver=ICA 3.0 BrowserProtocol=HTTPonTCP Compress=On EncryptionLevelSession=Basic \[Encrypt\] DriverNameWin32=PDCRYPTN.DLL DriverNameWin16=PDCRYPTW.DLL \[Compress\] DriverName=PDCOMP.DLL DriverNameWin16=PDCOMPW.DLL DriverNameWin32=PDCOMPN.DLL '
+# Launch Desktops
 
-\# Find my session ID (so I don't go closing other people's processes!) $session = \[System.Diagnostics.Process\]::GetCurrentProcess().SessionId
+foreach($server in $servers){ if(Get-Process wfica32 -ErrorAction SilentlyContinue){ #Close hung wfica32 and wfcrun32 processes 
+Write-Host "Force restarting wfcrun/wfica processes" -fore yellow Get-Process wfica32 | ? {$_.SessionId -eq $session} | Stop-Process -Force Get-Process wfcrun32 | ? {$_.SessionId -eq $session} | Stop-Process -Force }
 
-\# Launch Desktops
-
-foreach($server in $servers){ if(Get-Process wfica32 -ErrorAction SilentlyContinue){ #Close hung wfica32 and wfcrun32 processes Write-Host "Force restarting wfcrun/wfica processes" -fore yellow Get-Process wfica32 | ? {$\_.SessionId -eq $session} | Stop-Process -Force Get-Process wfcrun32 | ? {$\_.SessionId -eq $session} | Stop-Process -Force }
-
-\# Sleep a bit for wfica32 to catch its breath. Start-Sleep 3
+# Sleep a bit for wfica32 to catch its breath. Start-Sleep 3
 
 $result = $null
 
-\# Create launch result file Write-Host "Creating result file for $($server.ServerName)..." Write-Output "ComputerName,LastLogonTime,InMaintenanceMode" | Out-File "\\\\saaas.com\\LoginMonitor\\$($server.ServerName).txt" -Force -Encoding ascii
+# Create launch result file 
+Write-Host "Creating result file for $($server.ServerName)..." Write-Output "ComputerName,LastLogonTime,InMaintenanceMode" | Out-File "\\saaas.com\LoginMonitor\$($server.ServerName).txt" -Force -Encoding ascii
 
-\# Create ICA file $icaFile = "C:\\Scripts\\LoginMonitor\\LaunchFiles\\$($server.ServerName).ica" $icaTemplate -replace "XASERVER","$($server.ServerName)" -replace "XAUSERNAME","$($server.LogonUser)" | Out-File $icaFile -Force -Encoding ASCII
+# Create ICA file 
+$icaFile = "C:\Scripts\LoginMonitor\LaunchFiles\$($server.ServerName).ica" $icaTemplate -replace "XASERVER","$($server.ServerName)" -replace "XAUSERNAME","$($server.LogonUser)" | Out-File $icaFile -Force -Encoding ASCII
 
-\# Launch Desktop Start-Process "C:\\Program Files (x86)\\Citrix\\ICA Client\\wfica32.exe" "$($icaFile)" Write-Host "Launching desktop on $($server.ServerName)."
+# Launch Desktop 
+Start-Process "C:\Program Files (x86)\Citrix\ICA Client\wfica32.exe" "$($icaFile)" Write-Host "Launching desktop on $($server.ServerName)."
 
 $launchTime = Get-Date
 
-\# If this server isn't in our result table already, add it. Else, update the existing entry. if($server.ServerName -notin $masterResultTable.Server ){ $masterResultTable += \[PSCustomObject\]@{Server = $server.ServerName;LaunchTime = $launchtime; LastLogonTime = $null; Result = $result} }else{ $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.Servername)")\].LaunchTime = $launchtime $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.Servername)")\].LastLogonTime = $null $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.Servername)")\].Result = $result }
+# If this server isn't in our result table already, add it. Else, update the existing entry. 
+if($server.ServerName -notin $masterResultTable.Server ){ $masterResultTable += [PSCustomObject]@{Server = $server.ServerName;LaunchTime = $launchtime; LastLogonTime = $null; Result = $result} }else{ $masterResultTable[$masterResultTable.Server.IndexOf("$($server.Servername)")].LaunchTime = $launchtime $masterResultTable[$masterResultTable.Server.IndexOf("$($server.Servername)")].LastLogonTime = $null $masterResultTable[$masterResultTable.Server.IndexOf("$($server.Servername)")].Result = $result }
 
-\# Get Results $loginResultFile = "\\\\saaas.com\\LoginMonitor\\$($server.ServerName).txt" $launchTime = $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.Servername)")\].LaunchTime # Check to see if the user has logged in Write-Host "Checking to see if the login result file for $($server.ServerName) has been updated" -NoNewLine
+# Get Results 
+$loginResultFile = "\\saaas.com\LoginMonitor\$($server.ServerName).txt" $launchTime = $masterResultTable[$masterResultTable.Server.IndexOf("$($server.Servername)")].LaunchTime 
+# Check to see if the user has logged in 
+Write-Host "Checking to see if the login result file for $($server.ServerName) has been updated" -NoNewLine
 
-\# Check to see if the LogonTime attribute in the CSV file has been updated more recently than the LaunchTime, if its been more than 3 minutes waiting, or if the server is in Maintenance mode. # if so, try log in anyway but don't mark as a failure if it doesn't log in. do{ Write-Host "." -NoNewline $loginResult = Import-Csv $loginResultFile Start-Sleep 1
+# Check to see if the LogonTime attribute in the CSV file has been updated more recently than the LaunchTime, if its been more than 3 minutes waiting, or if the server is in Maintenance mode. 
 
-}until((($loginResult.LastLogonTime -as \[datetime\]) -gt $launchtime) -or ((Get-Date).AddMinutes(-2) -gt $launchTime))
+# if so, try log in anyway but don't mark as a failure if it doesn't log in. 
+do{ Write-Host "." -NoNewline $loginResult = Import-Csv $loginResultFile Start-Sleep 1
 
-\# Create the result variable depending on whether the LastLogonTime has been updated or not or whether the server is in Maintenance Mode if(($loginResult.LastLogonTime -as \[datetime\]) -gt $launchtime){ Write-Host " Logged into $($server.ServerName) successfully!" -Fore Green $result = "Success" }elseif($server.InMaintenanceMode -eq $true){ Write-Host " $($server.Servername) is in maintenance mode, skipping checks..." -fore yellow $result = "InMaintenanceMode" }else{
+}until((($loginResult.LastLogonTime -as [datetime]) -gt $launchtime) -or ((Get-Date).AddMinutes(-2) -gt $launchTime))
+
+# Create the result variable depending on whether the LastLogonTime has been updated or not or whether the server is in Maintenance Mode 
+if(($loginResult.LastLogonTime -as [datetime]) -gt $launchtime){ Write-Host " Logged into $($server.ServerName) successfully!" -Fore Green $result = "Success" }elseif($server.InMaintenanceMode -eq $true){ Write-Host " $($server.Servername) is in maintenance mode, skipping checks..." -fore yellow $result = "InMaintenanceMode" }else{
 
 Write-Host " User has not successfully logged into $($server.ServerName) in two minutes, skipping :(" -Fore red $result = "Failure" }
 
-\# Update the master table $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.ServerName)")\].Result = $result $masterResultTable\[$masterResultTable.Server.IndexOf("$($server.ServerName)")\].LastLogonTime = ($loginResult.LastLogonTime -as \[datetime\])
+# Update the master table 
+$masterResultTable[$masterResultTable.Server.IndexOf("$($server.ServerName)")].Result = $result $masterResultTable[$masterResultTable.Server.IndexOf("$($server.ServerName)")].LastLogonTime = ($loginResult.LastLogonTime -as [datetime])
 
-\# Update the CSV $masterResultTable | Export-CSV C:\\Scripts\\LoginMonitor\\LoginMonitorResults.csv -NoTypeInformation -Force
+# Update the CSV 
+$masterResultTable | Export-CSV C:\Scripts\LoginMonitor\LoginMonitorResults.csv -NoTypeInformation -Force
 
 }
 
-\# Stop any still-running Citrix processes - this tends to ruin Citrix Receiver. Better to just log off. Get-Process wfica32 | ? {$\_.SessionId -eq $session} | Stop-Process -Force Get-Process wfcrun32 | ? {$\_.SessionId -eq $session} | Stop-Process -Force # Gives "Receiver has stopped working" error #Get-Process receiver | Stop-Process -Force -Confirm:$false -ErrorAction SilentlyContinue #Get-Process SelfServicePlugin | Stop-Process -Force -Confirm:$false -ErrorAction SilentlyContinue
+# Stop any still-running Citrix processes - this tends to ruin Citrix Receiver. Better to just log off. 
+Get-Process wfica32 | ? {$_.SessionId -eq $session} | Stop-Process -Force Get-Process wfcrun32 | ? {$_.SessionId -eq $session} | Stop-Process -Force 
+# Gives "Receiver has stopped working" error 
+#Get-Process receiver | Stop-Process -Force -Confirm:$false -ErrorAction SilentlyContinue #Get-Process SelfServicePlugin | Stop-Process -Force -Confirm:$false -ErrorAction SilentlyContinue
 
-\# Reset the roaming profile to avoid corruption issues if((Test-Path .\\Blank) -eq $false){ mkdir blank } # MonitoringService needs to have modify perms to the below folders robocopy ".\\Blank" "\\\\saaas.com\\RoamingProfiles\\MonitoringService-2008R2.v2\\" /MIR /NJH /NJS /NDL /NS robocopy ".\\Blank" "\\\\saaas.com\\RoamingProfiles\\MonitoringService-2012R2.v2\\" /MIR /NJH /NJS /NDL /NS
+# Reset the roaming profile to avoid corruption issues 
+if((Test-Path .\Blank) -eq $false){ mkdir blank } 
+# MonitoringService needs to have modify perms to the below folders 
+robocopy ".\Blank" "\\saaas.com\RoamingProfiles\MonitoringService-2008R2.v2\" /MIR /NJH /NJS /NDL /NS robocopy ".\Blank" "\\saaas.com\RoamingProfiles\MonitoringService-2012R2.v2\" /MIR /NJH /NJS /NDL /NS
 
-$masterResultTable | Export-CSV C:\\Scripts\\LoginMonitor\\LoginMonitorResults.csv -NoTypeInformation -Force $end = Get-Date $length = $end - $start Write-Output "$($end) - Script took $($length.Hours) hours, $($length.Minutes) minutes, and $($length.Seconds) seconds to complete." | Out-File "C:\\Scripts\\LoginMonitor\\LoginMonitor.log" -Force
+$masterResultTable | Export-CSV C:\Scripts\LoginMonitor\LoginMonitorResults.csv -NoTypeInformation -Force $end = Get-Date $length = $end - $start Write-Output "$($end) - Script took $($length.Hours) hours, $($length.Minutes) minutes, and $($length.Seconds) seconds to complete." | Out-File "C:\Scripts\LoginMonitor\LoginMonitor.log" -Force
 
-\# Log off shutdown /l
+# Log off 
+shutdown /l
 
-\[/code\]
+```
 
 ### Nagios
 

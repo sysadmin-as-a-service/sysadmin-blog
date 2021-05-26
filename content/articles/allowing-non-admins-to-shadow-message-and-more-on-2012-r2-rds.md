@@ -30,8 +30,19 @@ It turns out, the Terminal Services Managers group still exists in WMI, and the 
 
 This will allow your selected group to do the following:
 
-Shadow other users\* List logged in users Disconnect users Log users off Kill processes of other users Open an administrative command prompt and type the following command (make sure you've actually created the group first):
+  - Shadow other users
+  - List logged in users-
+  - Disconnect users
+  - Log users off
+  - Kill processes of other users
+  
+Open an administrative command prompt and type the following command (make sure you've actually created the group first):
 
-\[code language="powershell"\] $protocols = \` "ICA-CGP", "ICA-CGP-1", "ICA-CGP-2", "ICA-CGP-3", "ICA-TCP", "ICA-SSL", "ICA-HTML5"</div> <div></div> <div>foreach($protocol in $protocols){</div> <div>(Get-WmiObject -Namespace "root/cimv2/terminalservices" -Class win32\_tspermissionssetting | Where-Object {$\_.TerminalName -eq $protocol}).AddAccount("SAAAS\\Client\_RDSAdmins",2) }</div> <div>\[/code\]
+```powershell
+$protocols =  "ICA-CGP", "ICA-CGP-1", "ICA-CGP-2", "ICA-CGP-3", "ICA-TCP", "ICA-SSL", "ICA-HTML5"
+foreach($protocol in $protocols){
+    (Get-WmiObject -Namespace "root/cimv2/terminalservices" -Class win32\_tspermissionssetting | Where-Object {$_.TerminalName -eq $protocol}).AddAccount("SAAAS\Client_RDSAdmins",2) 
+}
+```
 
 You will also need to add in the Group Policy settings as per https://technet.microsoft.com/en-us/library/cc771538.aspx

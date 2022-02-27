@@ -63,6 +63,7 @@ Styling:
     - finish homepage hero animation @done
     - fix colour of green/grey buttons @done
     - change link and author tag colors to match palette @done
+    - code blocks making weird sizing changes
 
 Mobile:
     - fix up title of posts scroll bar @done

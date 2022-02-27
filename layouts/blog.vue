@@ -9,7 +9,6 @@
           <Nuxt />
         </div>
         <div class="column is-one-fifth is-hidden-touch">
-          
         </div>
 
       </div>
@@ -58,6 +57,11 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+
+code[class*="language-"], pre[class*="language-"] {
+    white-space: pre-line !important;
+    /* word-break:  !important; */
 }
 
 .button--green {
